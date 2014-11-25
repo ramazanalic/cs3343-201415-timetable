@@ -26,7 +26,6 @@ public class BuildingConstraint implements Constraint{
 		for (String i : listOfBldgs) {
 			for (Timeslot s : timeslots.getTimeslots()) {
 				if (i.equals(s.getBuilding())) {
-					System.out.println("Found " + i);
 					this.fulfilled = false;
 					break;
 				}

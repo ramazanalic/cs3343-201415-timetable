@@ -15,8 +15,8 @@ import schedule.TimeGapConstraint;
 import schedule.Timeslot;
 import schedule.Timetable;
 import schedule.Weekday;
+import schedule.Utilities;
 import junit.framework.TestCase;
-
 
 public class TestSchedule extends TestCase{
 
@@ -40,7 +40,7 @@ public class TestSchedule extends TestCase{
 	 */
 	@After
 	public void tearDown() {System.setOut(null);}
-
+	
 	// Test case 1: There exists a session of CS2205 on Friday
 	@Test
 	public void testCS2205Fri() {
@@ -106,7 +106,7 @@ public class TestSchedule extends TestCase{
 	public void testExtractMonday() {
 		IO.readTimeslots(timeslots, "CS3343_data.txt");
 		Weekday expected = Weekday.Mon;
-		ArrayList<Timeslot> t = Schedule.extractTimeslotsByDay(timeslots, expected);
+		ArrayList<Timeslot> t = Utilities.extractTimeslotsByDay(timeslots, expected);
 		boolean result = true;
 		for (Timeslot i : t)
 			if (i.getDay() != expected.getDay())
@@ -162,7 +162,7 @@ public class TestSchedule extends TestCase{
 		timeslots.add(e);
 		timeslots.add(f);
 		String expected = "CS3443";
-		ArrayList<Timeslot> t = Schedule.extractTimeslotsByCode(timeslots, expected);
+		ArrayList<Timeslot> t = Utilities.extractTimeslotsByCode(timeslots, expected);
 		assertEquals(t.toString().equals("[CS3443-CB1, CS3443-CA1]"), true);
 	}
 
@@ -182,7 +182,7 @@ public class TestSchedule extends TestCase{
 		timeslots.add(e);
 		timeslots.add(f);
 		String expected = "CS3332";
-		ArrayList<Timeslot> t = Schedule.extractTimeslotsByCode(timeslots, expected);
+		ArrayList<Timeslot> t = Utilities.extractTimeslotsByCode(timeslots, expected);
 		assertEquals(t.toString().equals("[CS3332-C01]"), true);
 	}
 
@@ -368,14 +368,14 @@ public class TestSchedule extends TestCase{
 
 		// Mon: Exclude before 12, after 18
 		ArrayList<Double> mon = new ArrayList<Double>();
-		mon.addAll(Schedule.beforeTime(12));
-		mon.addAll(Schedule.afterTime(18));
+		mon.addAll(Utilities.beforeTime(12));
+		mon.addAll(Utilities.afterTime(18));
 		daytimeExcluded.put(1, mon);
 
 		//Tue: Exclude before 9, after 18
 		ArrayList<Double> tue = new ArrayList<Double>();
-		tue.addAll(Schedule.beforeTime(9));
-		tue.addAll(Schedule.afterTime(18));
+		tue.addAll(Utilities.beforeTime(9));
+		tue.addAll(Utilities.afterTime(18));
 		daytimeExcluded.put(2, tue);
 
 		TimeConstraint rc1 = new TimeConstraint(timetable, daytimeExcluded);
@@ -383,7 +383,7 @@ public class TestSchedule extends TestCase{
 
 		//Wed: Exclude between 12 to 14
 		ArrayList<Double> wed = new ArrayList<Double>();
-		wed.addAll(Schedule.betweenTime(12, 14));
+		wed.addAll(Utilities.betweenTime(12, 14));
 		daytimeExcluded.put(3, wed);
 
 		rc1 = new TimeConstraint(timetable, daytimeExcluded);
@@ -393,16 +393,16 @@ public class TestSchedule extends TestCase{
 		
 		//Wed: Exclude before 13
 		wed = new ArrayList<Double>();
-		wed.addAll(Schedule.beforeTime(13));
+		wed.addAll(Utilities.beforeTime(13));
 		daytimeExcluded.put(3, wed);
 
 		rc1 = new TimeConstraint(timetable, daytimeExcluded);
 		assertEquals(rc1.isFulfilled(), false);
 				
 		wed = new ArrayList<Double>();
-		wed.addAll(Schedule.beforeTime(9));
-		wed.addAll(Schedule.beforeTime(8));
-		wed.addAll(Schedule.beforeTime(7));
+		wed.addAll(Utilities.beforeTime(9));
+		wed.addAll(Utilities.beforeTime(8));
+		wed.addAll(Utilities.beforeTime(7));
 		daytimeExcluded.put(3, wed);
 		
 		rc1 = new TimeConstraint(timetable, daytimeExcluded);
@@ -471,14 +471,14 @@ public class TestSchedule extends TestCase{
 		timeslots.add(e);
 
 		
-		ArrayList<Timeslot> extracted = Schedule.extractTimeslotsByType(timeslots, "Lecture");
+		ArrayList<Timeslot> extracted = Utilities.extractTimeslotsByType(timeslots, "Lecture");
 		ArrayList<Timeslot> lectures = new ArrayList<Timeslot>();
 		lectures.add(a);
 		lectures.add(d);
 		lectures.add(e);
 		assertEquals(extracted.equals(lectures), true);
 		
-		extracted = Schedule.extractTimeslotsByType(timeslots, "Tutorial");
+		extracted = Utilities.extractTimeslotsByType(timeslots, "Tutorial");
 		ArrayList<Timeslot> tutorials = new ArrayList<Timeslot>();
 		tutorials.add(b);
 		tutorials.add(c);
@@ -544,7 +544,7 @@ public class TestSchedule extends TestCase{
 		timeslots.add(e);
 		timeslots.add(f);
 		
-		ArrayList<String> uniqueCourses = Schedule.allCourses(timeslots);
+		ArrayList<String> uniqueCourses = Utilities.allCourses(timeslots);
 		assertEquals(uniqueCourses.toString().equals("[CS3332, CS2332, CS3301, CS3201, CS3443]"), true);
 		
 	}
@@ -569,7 +569,7 @@ public class TestSchedule extends TestCase{
 		timeslots2.add(e);
 		timeslots2.add(f);
 		
-		assertEquals(Schedule.permutate(timeslots, timeslots2).toString().equals("[[CS3332-C01, CS3201-CA1], [CS3332-C01, CS3443-CB1], [CS3332-C01, CS3443-CA1], [CS2332-LA1, CS3201-CA1], [CS2332-LA1, CS3443-CB1], [CS2332-LA1, CS3443-CA1], [CS3301-LA1, CS3201-CA1], [CS3301-LA1, CS3443-CB1], [CS3301-LA1, CS3443-CA1]]"), true);
+		assertEquals(Utilities.permutate(timeslots, timeslots2).toString().equals("[[CS3332-C01, CS3201-CA1], [CS3332-C01, CS3443-CB1], [CS3332-C01, CS3443-CA1], [CS2332-LA1, CS3201-CA1], [CS2332-LA1, CS3443-CB1], [CS2332-LA1, CS3443-CA1], [CS3301-LA1, CS3201-CA1], [CS3301-LA1, CS3443-CB1], [CS3301-LA1, CS3443-CA1]]"), true);
 		
 	}
 
@@ -605,7 +605,7 @@ public class TestSchedule extends TestCase{
 		timeslotsB.add(timeslotsB1);
 		timeslotsB.add(timeslotsB2);
 				
-		ArrayList<ArrayList<Timeslot>> permutated = Schedule.permutateArrayList(timeslotsA, timeslotsB);
+		ArrayList<ArrayList<Timeslot>> permutated = Utilities.permutateArrayList(timeslotsA, timeslotsB);
 		
 		ArrayList<ArrayList<Timeslot>> timeslotsAexpected = new ArrayList<ArrayList<Timeslot>>();
 		ArrayList<Timeslot> timeslotsExp1 = new ArrayList<Timeslot>();
@@ -660,28 +660,28 @@ public class TestSchedule extends TestCase{
 		timeslots.add(g);
 		timeslots.add(h);
 		
-		ArrayList<Timeslot> CS3332 = Schedule.extractTimeslotsByCode(timeslots, "CS3332");
-		ArrayList<Timeslot> CS3332l = Schedule.extractTimeslotsByType(CS3332, "Lecture");
-		ArrayList<Timeslot> CS3332t = Schedule.extractTimeslotsByType(CS3332, "Tutorial");
+		ArrayList<Timeslot> CS3332 = Utilities.extractTimeslotsByCode(timeslots, "CS3332");
+		ArrayList<Timeslot> CS3332l = Utilities.extractTimeslotsByType(CS3332, "Lecture");
+		ArrayList<Timeslot> CS3332t = Utilities.extractTimeslotsByType(CS3332, "Tutorial");
 		
-		ArrayList<Timeslot> CS3443 = Schedule.extractTimeslotsByCode(timeslots, "CS3443");
-		ArrayList<Timeslot> CS3443l = Schedule.extractTimeslotsByType(CS3443, "Lecture");
-		ArrayList<Timeslot> CS3443t = Schedule.extractTimeslotsByType(CS3443, "Tutorial");
+		ArrayList<Timeslot> CS3443 = Utilities.extractTimeslotsByCode(timeslots, "CS3443");
+		ArrayList<Timeslot> CS3443l = Utilities.extractTimeslotsByType(CS3443, "Lecture");
+		ArrayList<Timeslot> CS3443t = Utilities.extractTimeslotsByType(CS3443, "Tutorial");
 				
-		ArrayList<Timeslot> CS3201 = Schedule.extractTimeslotsByCode(timeslots, "CS3201");
-		ArrayList<Timeslot> CS3201l = Schedule.extractTimeslotsByType(CS3201, "Lecture");
-		ArrayList<Timeslot> CS3201t = Schedule.extractTimeslotsByType(CS3201, "Tutorial");
+		ArrayList<Timeslot> CS3201 = Utilities.extractTimeslotsByCode(timeslots, "CS3201");
+		ArrayList<Timeslot> CS3201l = Utilities.extractTimeslotsByType(CS3201, "Lecture");
+		ArrayList<Timeslot> CS3201t = Utilities.extractTimeslotsByType(CS3201, "Tutorial");
 		
-		ArrayList<ArrayList<Timeslot>> CS3332p = Schedule.permutate(CS3332l, CS3332t);
-		ArrayList<ArrayList<Timeslot>> CS3443p = Schedule.permutate(CS3443l, CS3443t);
-		ArrayList<ArrayList<Timeslot>> CS3201p = Schedule.permutate(CS3201l, CS3201t);
+		ArrayList<ArrayList<Timeslot>> CS3332p = Utilities.permutate(CS3332l, CS3332t);
+		ArrayList<ArrayList<Timeslot>> CS3443p = Utilities.permutate(CS3443l, CS3443t);
+		ArrayList<ArrayList<Timeslot>> CS3201p = Utilities.permutate(CS3201l, CS3201t);
 		
 		ArrayList<ArrayList<ArrayList<Timeslot>>> allCourses = new ArrayList<ArrayList<ArrayList<Timeslot>>>();
 		allCourses.add(CS3332p);
 		allCourses.add(CS3443p);
 		allCourses.add(CS3201p);
 		
-		ArrayList<ArrayList<ArrayList<Timeslot>>> permutated = Schedule.GeneratePermutations(allCourses);
+		ArrayList<ArrayList<ArrayList<Timeslot>>> permutated = Utilities.GeneratePermutations(allCourses);
 		//System.out.println(permutated);
 		
 		ArrayList<ArrayList<ArrayList<Timeslot>>> expected = new ArrayList<ArrayList<ArrayList<Timeslot>>>();
@@ -805,8 +805,22 @@ public class TestSchedule extends TestCase{
 	// Test case 25: Test main
 	@Test
 	public void testMain() {
+		
 		String[] args = {"CS3343_data2.txt"};
+		
+/*		ByteArrayInputStream in = new ByteArrayInputStream("60002".getBytes());
+		System.setIn(in);
+		in = new ByteArrayInputStream("50005".getBytes());
+		System.setIn(in);
+		in = new ByteArrayInputStream("-1".getBytes());
+		System.setIn(in);
+		in = new ByteArrayInputStream("AC3".getBytes());
+		System.setIn(in);
+		in = new ByteArrayInputStream("-1".getBytes());
+		System.setIn(in);*/
+		
 		Schedule.main(args);
+		//System.setIn(System.in);
 		String expected = "There are 4248 possible combinations.\r\n" + 
 				"                                       |-------------------------|                                       \r\n" + 
 				"                                       |   Visualized timetable  |                                       \r\n" + 
@@ -853,7 +867,36 @@ public class TestSchedule extends TestCase{
 	public void testPrintScheduleNo() {
 		String[] args = {"CS3343_data.txt"};
 		Schedule.main(args);
-		String expected = "There is no possible combination i.e. You should remove at least 1 course.";
+		String expected = "There is no possible combination i.e. You should remove at least 1 session.";
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+	
+	// Test case 27: Test printSchedule(No lectures)
+	@Test
+	public void testMainNoLectures() {
+		String[] args = {"CS3343_data-NoLectures.txt"};
+		Schedule.main(args);
+		String expected = "There is no lecture.";
+		
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+	
+	// Test case 28: Test printSchedule(No tutorials)
+	@Test
+	public void testMainNoTutorials() {
+		String[] args = {"CS3343_data-NoTutorials.txt"};
+		Schedule.main(args);
+		
+		String expected = "There is no tutorial.";
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+	
+	// Test case 29: Test Main(No arguments)
+	@Test
+	public void testMainNoArguments() {
+		String[] args = {};
+		Schedule.main(args);
+		String expected = "Please enter the data file as an argument.";
 		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
 }

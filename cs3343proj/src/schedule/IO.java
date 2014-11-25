@@ -3,6 +3,7 @@ package schedule;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class IO {
@@ -127,6 +128,88 @@ public class IO {
 
 		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 	}
+	
+	public static void printCRNs(Timetable timetable)
+	{
+		System.out.print("List of CRNs: [");
+		for (int i=0; i<timetable.size(); i++)
+		{
+			Timeslot timeslot = timetable.get(i);
+			System.out.print(timeslot.getCrn());
+			if (i < timetable.size()-1)
+				System.out.print(", ");
+		}
+		System.out.println("]");
+	}
+	
+	public static void printTimetable(ArrayList<Timetable> listOfTimetables)
+	{
+		int numPosTimetables = listOfTimetables.size();
+		int chosen = -1;
+		
 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			while (true)
+			{
+				System.out.println("\n\nPlease enter a number between 1 and " + numPosTimetables + ", or -1 to finish.");
+				chosen = Integer.parseInt(br.readLine());
+				if (chosen == -1)
+					break;
+				printSchedule(listOfTimetables.get(chosen-1));
+				printCRNs(listOfTimetables.get(chosen-1));
+			}
+		} catch (IOException e) {
+			System.out.println("An error occured.");
+			//e.printStackTrace();
+		} catch (NumberFormatException e) {
+			System.out.println("You can only input a valid integer.");
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("You can only input a valid integer.");
+		}
+	}
+
+	public static ArrayList<String> readRequiredConstraints()
+	{
+		System.out.println("Please enter the CRN of courses which must be taken, or -1 to continue to next step.");
+		ArrayList<String> ret = new ArrayList<String>();
+		String crn;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			while (true)
+			{
+				crn = br.readLine();
+				if (crn.compareTo("-1") == 0)
+					break;
+				ret.add(crn);
+			}
+		} catch (IOException e) {
+			System.out.println("An error occured.");
+			//e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public static ArrayList<String> readBuildingConstraints()
+	{
+		System.out.println("Please enter the acronym of the building which you do NOT want to have class in, or -1 to continue to next step.");
+		ArrayList<String> ret = new ArrayList<String>();
+		String bldg;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			while (true)
+			{
+				bldg = br.readLine();
+				if (bldg.compareTo("-1") == 0)
+					break;
+				ret.add(bldg);
+			}
+		} catch (IOException e) {
+			System.out.println("An error occured.");
+			//e.printStackTrace();
+		}
+		return ret;
+	}
+	
 	
 }
