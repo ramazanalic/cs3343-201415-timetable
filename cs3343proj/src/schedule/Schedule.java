@@ -9,10 +9,10 @@ import java.util.*;
  */
 public class Schedule {
 
-	/** The first time. */
+	/** The first session's start time. */
 	public static double firstTime = 8.0;
 	
-	/** The last time. */
+	/** The last session's finish time. */
 	public static double lastTime = 23.0;
 
 	/**
@@ -23,7 +23,10 @@ public class Schedule {
 	public static void main(String[] args) {
 
 		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
-		readTimeslots(timeslots, "CS3343_data2.txt"); //Extract method
+		
+		String inputFile = "CS3343_data2.txt"; 
+		
+		readTimeslots(timeslots, inputFile); //Extract method
 		//System.out.println(timeslots.size());
 		
 		// validate input
@@ -140,10 +143,10 @@ public class Schedule {
 
 
 	/**
-	 * Read timeslots.
+	 * Read timeslots from a file.
 	 *
-	 * @param timeslots the timeslots
-	 * @param fn the fn
+	 * @param timeslots the array list storing timeslots
+	 * @param fn the file name
 	 */
 	public static void readTimeslots(ArrayList<Timeslot> timeslots, String fn) {
 		String currentLine;
@@ -226,7 +229,7 @@ public class Schedule {
 	 * All courses.
 	 *
 	 * @param timeslots the timeslots
-	 * @return the array list
+	 * @return the array list of all courses
 	 */
 	public static ArrayList<String> allCourses(ArrayList<Timeslot> timeslots) {
 		ArrayList<String> courses = new ArrayList<String>();
@@ -253,7 +256,7 @@ public class Schedule {
 	 *
 	 * @param timeslots the timeslots
 	 * @param day the day
-	 * @return the array list
+	 * @return the array list of courses of a particular day
 	 */
 	public static ArrayList<Timeslot> extractTimeslotsByDay(ArrayList<Timeslot> timeslots, Weekday day) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
@@ -264,11 +267,11 @@ public class Schedule {
 	}
 
 	/**
-	 * Extract timeslots by code.
+	 * Extract timeslots by course code.
 	 *
 	 * @param timeslots the timeslots
-	 * @param code the code
-	 * @return the array list
+	 * @param code the course code
+	 * @return the array list of courses of a particular course
 	 */
 	public static ArrayList<Timeslot> extractTimeslotsByCode(ArrayList<Timeslot> timeslots, String code) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
@@ -279,11 +282,11 @@ public class Schedule {
 	}
 
 	/**
-	 * Extract timeslots by type.
+	 * Extract timeslots by session type (lecture/tutorial).
 	 *
 	 * @param timeslots the timeslots
-	 * @param type the type
-	 * @return the array list
+	 * @param type the type of session
+	 * @return the array list of courses of a particular type of session
 	 */
 	public static ArrayList<Timeslot> extractTimeslotsByType(ArrayList<Timeslot> timeslots, String type) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
@@ -295,10 +298,10 @@ public class Schedule {
 
 	//Assume no overlaps
 	/**
-	 * Sort by start time.
+	 * Sort the given timeslots by start time.
 	 *
 	 * @param timeslots the timeslots
-	 * @param result the result
+	 * @param result the sorted timeslots by start time
 	 */
 	public static void sortByStartTime(ArrayList<Timeslot> timeslots, ArrayList<Timeslot> result) {
 		if (timeslots.size() == 1) {
@@ -323,9 +326,9 @@ public class Schedule {
 	/**
 	 * Permutate.
 	 *
-	 * @param list1 the list1
-	 * @param list2 the list2
-	 * @return the array list
+	 * @param list1 the first array list to permutate
+	 * @param list2 the second array list to permutate
+	 * @return the array list of permutating list1 with list2
 	 */
 	public static ArrayList<ArrayList<Timeslot>> permutate(ArrayList<Timeslot> list1, ArrayList<Timeslot> list2) {
 		ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
@@ -342,11 +345,11 @@ public class Schedule {
 	}
 
 	/**
-	 * Permutate array list.
+	 * Permutate array list of array list.
 	 *
-	 * @param list1 the list1
-	 * @param list2 the list2
-	 * @return the array list
+	 * @param list1 the first array list of array list to permutate
+	 * @param list2 the second array list of array list to permutate
+	 * @return the array list of permutating list1 with list2
 	 */
 	public static ArrayList<ArrayList<Timeslot>> permutateArrayList(ArrayList<ArrayList<Timeslot>> list1, ArrayList<ArrayList<Timeslot>> list2) {
 		ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
@@ -363,12 +366,12 @@ public class Schedule {
 	}
 
 	/**
-	 * Generate permutations.
+	 * Generate permutations by splitting an array list by course code and session type recursively.
 	 *
-	 * @param list the list
-	 * @return the array list
+	 * @param list the list storing all sessions
+	 * @return the array list of all permutated sessions
 	 */
-	public static ArrayList<ArrayList<ArrayList<Timeslot>>> GeneratePermutations(ArrayList<ArrayList<ArrayList<Timeslot>>> list)//, ArrayList<Timeslot> result, int depth, ArrayList<Timeslot> current)
+	public static ArrayList<ArrayList<ArrayList<Timeslot>>> GeneratePermutations(ArrayList<ArrayList<ArrayList<Timeslot>>> list)
 	{
 		if (list.size() == 1)
 			return list;
@@ -379,23 +382,12 @@ public class Schedule {
 		list.remove(0);
 
 		return GeneratePermutations(list);
-
-		//    if(depth == allTimeslots.size())
-		//    {
-		//       result.add(current);
-		//       return;
-		//     }
-		//
-		//    for(int i = 0; i < Lists.get(depth).size(); ++i)
-		//    {
-		//        GeneratePermutations(Lists, result, depth + 1, current + Lists.get(depth).get(i));
-		//    }
 	}
 
 	/**
-	 * Prints the schedule.
+	 * Prints the schedule to console.
 	 *
-	 * @param timeslots the timeslots
+	 * @param timeslots the entire schedule
 	 */
 	public static void printSchedule(ArrayList<Timeslot> timeslots)
 	{
@@ -455,10 +447,10 @@ public class Schedule {
 	}
 
 	/**
-	 * Before time.
+	 * To generate an array list of time before a given time t.
 	 *
-	 * @param t the t
-	 * @return the array list
+	 * @param t the given time t
+	 * @return the array list of time NOT before time t
 	 */
 	public static ArrayList<Double> beforeTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
@@ -469,10 +461,10 @@ public class Schedule {
 	}
 
 	/**
-	 * After time.
+	 * To generate an array list of time after a given time t.
 	 *
-	 * @param t the t
-	 * @return the array list
+	 * @param t the given time t
+	 * @return the array list of time NOT after time t
 	 */
 	public static ArrayList<Double> afterTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
@@ -482,13 +474,11 @@ public class Schedule {
 		return listOfExcludedTime;
 	}
 
-	// (t1, t2]
 	/**
-	 * Between time.
+	 * To generate an array list of time between 2 given times t1 and t2. (t1, t2]
 	 *
-	 * @param t1 the t1
-	 * @param t2 the t2
-	 * @return the array list
+	 * @param t1, t2 the given times
+	 * @return the array list of time NOT between t1 and t2
 	 */
 	public static ArrayList<Double> betweenTime(double t1, double t2) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();

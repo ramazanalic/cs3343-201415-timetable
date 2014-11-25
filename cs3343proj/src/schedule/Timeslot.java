@@ -72,10 +72,11 @@ public class Timeslot {
 	/**
 	 * Instantiates a new timeslot.
 	 */
+	/*
 	public Timeslot() {
 
 	}
-
+	 */
 	/**
 	 * Same day.
 	 *
@@ -147,15 +148,6 @@ public double difference(Timeslot a) {
 	public String getCrn() {
 		return crn;
 	}
-
-	/**
-	 * Sets the crn.
-	 *
-	 * @param crn the new crn
-	 */
-	public void setCrn(String crn) {
-		this.crn = crn;
-	}
 	
 	/**
 	 * Gets the type.
@@ -164,15 +156,6 @@ public double difference(Timeslot a) {
 	 */
 	public String getType() {
 		return type;
-	}
-
-	/**
-	 * Sets the type.
-	 *
-	 * @param type the new type
-	 */
-	public void setType(String type) {
-		this.type = type;
 	}
 	
 	/**
@@ -185,30 +168,12 @@ public double difference(Timeslot a) {
 	}
 
 	/**
-	 * Sets the code.
-	 *
-	 * @param code the new code
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	/**
 	 * Gets the session.
 	 *
 	 * @return the session
 	 */
 	public String getSession() {
 		return session;
-	}
-
-	/**
-	 * Sets the session.
-	 *
-	 * @param session the new session
-	 */
-	public void setSession(String session) {
-		this.session = session;
 	}
 
 	/**
@@ -221,30 +186,12 @@ public double difference(Timeslot a) {
 	}
 
 	/**
-	 * Sets the building.
-	 *
-	 * @param building the new building
-	 */
-	public void setBuilding(String building) {
-		this.building = building;
-	}
-
-	/**
 	 * Gets the room.
 	 *
 	 * @return the room
 	 */
 	public String getRoom() {
 		return room;
-	}
-
-	/**
-	 * Sets the room.
-	 *
-	 * @param room the new room
-	 */
-	public void setRoom(String room) {
-		this.room = room;
 	}
 
 	/**
@@ -257,30 +204,12 @@ public double difference(Timeslot a) {
 	}
 
 	/**
-	 * Sets the start time.
-	 *
-	 * @param startTime the new start time
-	 */
-	public void setStartTime(double startTime) {
-		this.startTime = startTime;
-	}
-
-	/**
 	 * Gets the finish time.
 	 *
 	 * @return the finish time
 	 */
 	public double getFinishTime() {
 		return finishTime;
-	}
-
-	/**
-	 * Sets the finish time.
-	 *
-	 * @param finishTime the new finish time
-	 */
-	public void setFinishTime(double finishTime) {
-		this.finishTime = finishTime;
 	}
 
 	/**
@@ -292,12 +221,4 @@ public double difference(Timeslot a) {
 		return day;
 	}
 
-	/**
-	 * Sets the day.
-	 *
-	 * @param day the new day
-	 */
-	public void setDay(int day) {
-		this.day = day;
-	}
 }

@@ -64,10 +64,13 @@ public class TestSchedule extends TestCase{
 		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 17, Weekday.Mon.getDay());
 		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 15, Weekday.Mon.getDay());
 		Timeslot c = new Timeslot("40003","CS2332","LA1", "AC2", "5503", 15, 16, Weekday.Mon.getDay());
+		Timeslot d = new Timeslot("40004","CS4335","LA1", "AC1", "5110", 15, 16, Weekday.Mon.getDay());
 
 		boolean result = a.overlap(b);
 		assertEquals(result, true);
 		result = a.overlap(c);
+		assertEquals(result, true);
+		result = d.overlap(c);
 		assertEquals(result, true);
 	}
 
@@ -396,13 +399,76 @@ public class TestSchedule extends TestCase{
 		listOfBuildings.add("CMC");
 		
 		BuildingConstraint rc = new BuildingConstraint(timeslots, listOfBuildings);
-		System.out.println(rc.isFulfilled());
 		assertEquals(rc.isFulfilled(), true);
 		
 		listOfBuildings.add("AC3");
 		rc = new BuildingConstraint(timeslots, listOfBuildings);
-		System.out.println(rc.isFulfilled());
 		assertEquals(rc.isFulfilled(), false);
 	}
+	
+	// Test case 17: Test SameBuilding
+	@Test
+	public void testSameBuilding() {
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+		Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11.5, Weekday.Wed.getDay());
+		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
+		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
+		timeslots.add(a);
+		timeslots.add(b);
+		timeslots.add(c);
+		timeslots.add(d);
+		timeslots.add(e);
 
+		assertEquals(a.sameBuilding(c), true);
+		assertEquals(a.sameBuilding(b), false);
+		assertEquals(e.sameBuilding(c), true);
+		assertEquals(d.sameBuilding(b), false);
+	}
+
+	// Test case 18: Test ExtractTimeslotsByType
+	@Test
+	public void testExtractTimeslotsByType() {
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+		Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11.5, Weekday.Wed.getDay());
+		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
+		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
+		timeslots.add(a);
+		timeslots.add(b);
+		timeslots.add(c);
+		timeslots.add(d);
+		timeslots.add(e);
+
+		ArrayList<Timeslot> extracted = Schedule.extractTimeslotsByType(timeslots, "Lecture");
+		ArrayList<Timeslot> lectures = new ArrayList<Timeslot>();
+		lectures.add(a);
+		lectures.add(d);
+		lectures.add(e);
+		assertEquals(extracted.equals(lectures), true);
+		
+		extracted = Schedule.extractTimeslotsByType(timeslots, "Tutorial");
+		ArrayList<Timeslot> tutorials = new ArrayList<Timeslot>();
+		tutorials.add(b);
+		tutorials.add(c);
+		assertEquals(extracted.equals(tutorials), true);
+	}
+
+	// Test case 19: Test toString
+		@Test
+		public void testToString() {
+			Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+			Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+			Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11.5, Weekday.Wed.getDay());
+			Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
+			Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
+
+			assertEquals(a.toString().equals("CS3332-C01"), true);
+			assertEquals(b.toString().equals("CS2332-LA1"), true);
+			assertEquals(c.toString().equals("CS3301-LA1"), true);
+			assertEquals(d.toString().equals("CS3201-CA1"), true);
+			assertEquals(e.toString().equals("CS3443-CB1"), true);
+			
+		}
+	
 }
