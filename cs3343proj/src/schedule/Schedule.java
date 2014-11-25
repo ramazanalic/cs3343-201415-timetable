@@ -86,9 +86,9 @@ public class Schedule {
 		if (numValidCombinations == 0)
 			System.out.println("There is no possible combination i.e. You should remove at least 1 course");
 		else
-			System.out.println("There are " + numValidCombinations + " possible combination.");
+			System.out.println("There are " + numValidCombinations + " possible combinations.");
 		
-		printSchedule(validPermutatedUniqueCourseTimeslotsList.get(1372));
+		
 		
 		// filter Timeslot according to constraints
 		
@@ -97,12 +97,14 @@ public class Schedule {
 		listOfCrns.add("60002");
 		listOfCrns.add("50005");
 		
+		int count = 0;
 		for (int i=0; i < validPermutatedUniqueCourseTimeslotsList.size(); i++) {
 			ArrayList<Timeslot> l = validPermutatedUniqueCourseTimeslotsList.get(i);
 			RequiredConstraint rc = new RequiredConstraint(l, listOfCrns);
 			//System.out.println("slot 0 fulfilled: " + rc.isFulfilled());
-			if (rc.isFulfilled()) {System.out.println(i); break;}
+			if (rc.isFulfilled()) {printSchedule(validPermutatedUniqueCourseTimeslotsList.get(i)); System.out.println(); count++;}
 		}
+		System.out.println(count);
 	}
 
 
