@@ -3,11 +3,23 @@ package schedule;
 import java.io.*;
 import java.util.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Schedule.
+ */
 public class Schedule {
 
+	/** The first time. */
 	public static double firstTime = 8.0;
+	
+	/** The last time. */
 	public static double lastTime = 23.0;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
@@ -127,6 +139,12 @@ public class Schedule {
 	}
 
 
+	/**
+	 * Read timeslots.
+	 *
+	 * @param timeslots the timeslots
+	 * @param fn the fn
+	 */
 	public static void readTimeslots(ArrayList<Timeslot> timeslots, String fn) {
 		String currentLine;
 		String[][] courseData = new String[255][8];
@@ -174,6 +192,12 @@ public class Schedule {
 		}
 	}
 
+	/**
+	 * Validate input.
+	 *
+	 * @param timeslots the timeslots
+	 * @return true, if successful
+	 */
 	public static boolean validateInput(ArrayList<Timeslot> timeslots) { //Extract Method
 		for (Timeslot i : timeslots) {
 
@@ -198,6 +222,12 @@ public class Schedule {
 		return true;
 	}
 
+	/**
+	 * All courses.
+	 *
+	 * @param timeslots the timeslots
+	 * @return the array list
+	 */
 	public static ArrayList<String> allCourses(ArrayList<Timeslot> timeslots) {
 		ArrayList<String> courses = new ArrayList<String>();
 
@@ -218,6 +248,13 @@ public class Schedule {
 
 
 
+	/**
+	 * Extract timeslots by day.
+	 *
+	 * @param timeslots the timeslots
+	 * @param day the day
+	 * @return the array list
+	 */
 	public static ArrayList<Timeslot> extractTimeslotsByDay(ArrayList<Timeslot> timeslots, Weekday day) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
 		for (Timeslot i : timeslots)
@@ -226,6 +263,13 @@ public class Schedule {
 		return t;
 	}
 
+	/**
+	 * Extract timeslots by code.
+	 *
+	 * @param timeslots the timeslots
+	 * @param code the code
+	 * @return the array list
+	 */
 	public static ArrayList<Timeslot> extractTimeslotsByCode(ArrayList<Timeslot> timeslots, String code) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
 		for (Timeslot i : timeslots)
@@ -234,6 +278,13 @@ public class Schedule {
 		return t;
 	}
 
+	/**
+	 * Extract timeslots by type.
+	 *
+	 * @param timeslots the timeslots
+	 * @param type the type
+	 * @return the array list
+	 */
 	public static ArrayList<Timeslot> extractTimeslotsByType(ArrayList<Timeslot> timeslots, String type) {
 		ArrayList<Timeslot> t = new ArrayList<Timeslot>();
 		for (Timeslot i : timeslots)
@@ -243,6 +294,12 @@ public class Schedule {
 	}
 
 	//Assume no overlaps
+	/**
+	 * Sort by start time.
+	 *
+	 * @param timeslots the timeslots
+	 * @param result the result
+	 */
 	public static void sortByStartTime(ArrayList<Timeslot> timeslots, ArrayList<Timeslot> result) {
 		if (timeslots.size() == 1) {
 			result.add(timeslots.get(0));
@@ -263,6 +320,13 @@ public class Schedule {
 		sortByStartTime(timeslots, result);
 	}
 
+	/**
+	 * Permutate.
+	 *
+	 * @param list1 the list1
+	 * @param list2 the list2
+	 * @return the array list
+	 */
 	public static ArrayList<ArrayList<Timeslot>> permutate(ArrayList<Timeslot> list1, ArrayList<Timeslot> list2) {
 		ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
 
@@ -277,6 +341,13 @@ public class Schedule {
 		return res;
 	}
 
+	/**
+	 * Permutate array list.
+	 *
+	 * @param list1 the list1
+	 * @param list2 the list2
+	 * @return the array list
+	 */
 	public static ArrayList<ArrayList<Timeslot>> permutateArrayList(ArrayList<ArrayList<Timeslot>> list1, ArrayList<ArrayList<Timeslot>> list2) {
 		ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
 
@@ -291,6 +362,12 @@ public class Schedule {
 		return res;
 	}
 
+	/**
+	 * Generate permutations.
+	 *
+	 * @param list the list
+	 * @return the array list
+	 */
 	public static ArrayList<ArrayList<ArrayList<Timeslot>>> GeneratePermutations(ArrayList<ArrayList<ArrayList<Timeslot>>> list)//, ArrayList<Timeslot> result, int depth, ArrayList<Timeslot> current)
 	{
 		if (list.size() == 1)
@@ -315,6 +392,11 @@ public class Schedule {
 		//    }
 	}
 
+	/**
+	 * Prints the schedule.
+	 *
+	 * @param timeslots the timeslots
+	 */
 	public static void printSchedule(ArrayList<Timeslot> timeslots)
 	{
 		int startTime = 8;
@@ -372,6 +454,12 @@ public class Schedule {
 		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 	}
 
+	/**
+	 * Before time.
+	 *
+	 * @param t the t
+	 * @return the array list
+	 */
 	public static ArrayList<Double> beforeTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = firstTime; i < t; i++) {
@@ -380,6 +468,12 @@ public class Schedule {
 		return listOfExcludedTime;
 	}
 
+	/**
+	 * After time.
+	 *
+	 * @param t the t
+	 * @return the array list
+	 */
 	public static ArrayList<Double> afterTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = t; i < lastTime; i++) {
@@ -389,6 +483,13 @@ public class Schedule {
 	}
 
 	// (t1, t2]
+	/**
+	 * Between time.
+	 *
+	 * @param t1 the t1
+	 * @param t2 the t2
+	 * @return the array list
+	 */
 	public static ArrayList<Double> betweenTime(double t1, double t2) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = t1; i < t2; i++) {

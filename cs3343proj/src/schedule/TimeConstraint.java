@@ -3,9 +3,21 @@ package schedule;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TimeConstraint.
+ */
 public class TimeConstraint implements Constraint {
+	
+	/** The fulfilled. */
 	private boolean fulfilled = true;
 	
+	/**
+	 * Instantiates a new time constraint.
+	 *
+	 * @param t the t
+	 * @param daytimeExcluded the daytime excluded
+	 */
 	public TimeConstraint(ArrayList<Timeslot> t, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {
 
 		for (Timeslot i : t) {
@@ -22,6 +34,11 @@ public class TimeConstraint implements Constraint {
 
 	}
 	
+	/**
+	 * Checks if the time constraint is fulfilled.
+	 *
+	 * @return true, if is fulfilled
+	 */
 	public boolean isFulfilled() {
 		return fulfilled;
 	}
