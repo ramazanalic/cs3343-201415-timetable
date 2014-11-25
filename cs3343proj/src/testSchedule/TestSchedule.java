@@ -446,14 +446,6 @@ public class TestSchedule extends TestCase{
 		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
 		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
 		
-		timetable = new Timetable();
-		
-		timetable.add(a);
-		timetable.add(b);
-		timetable.add(c);
-		timetable.add(d);
-		timetable.add(e);
-
 		assertEquals(a.sameBuilding(c), true);
 		assertEquals(a.sameBuilding(b), false);
 		assertEquals(e.sameBuilding(c), true);
@@ -469,15 +461,15 @@ public class TestSchedule extends TestCase{
 		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
 		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
 		
-		timetable = new Timetable();
 		
-		timetable.add(a);
-		timetable.add(b);
-		timetable.add(c);
-		timetable.add(d);
-		timetable.add(e);
+		timeslots.clear();
+		
+		timeslots.add(a);
+		timeslots.add(b);
+		timeslots.add(c);
+		timeslots.add(d);
+		timeslots.add(e);
 
-		timeslots = timetable.getTimeslots();
 		
 		ArrayList<Timeslot> extracted = Schedule.extractTimeslotsByType(timeslots, "Lecture");
 		ArrayList<Timeslot> lectures = new ArrayList<Timeslot>();
@@ -519,17 +511,19 @@ public class TestSchedule extends TestCase{
 		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
 		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
 
-		timeslots.add(a);
-		timeslots.add(b);
-			
-		assertEquals(timeslots.toString().equals("[CS3332-C01, CS2332-LA1]"), true);
+		timetable = new Timetable();		
 		
-		timeslots.clear();
-		timeslots.add(c);
-		timeslots.add(d);
-		timeslots.add(e);
+		timetable.add(a);
+		timetable.add(b);
 		
-		assertEquals(timeslots.toString().equals("[CS3301-LA1, CS3201-CA1, CS3443-CB1]"), true);
+		assertEquals(timetable.toString().equals("[CS3332-C01, CS2332-LA1]"), true);
+		
+		timetable.clear();
+		timetable.add(c);
+		timetable.add(d);
+		timetable.add(e);
+		
+		assertEquals(timetable.toString().equals("[CS3301-LA1, CS3201-CA1, CS3443-CB1]"), true);
 		
 	}
 

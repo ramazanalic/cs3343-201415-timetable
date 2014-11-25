@@ -246,32 +246,7 @@ public class Schedule {
 		return t;
 	}
 
-	//Assume no overlaps
-	/**
-	 * Sort the given timeslots by start time.
-	 *
-	 * @param timetable the timeslots
-	 * @param result the sorted timeslots by start time
-	 */
-	public static void sortByStartTime(Timetable timetable, ArrayList<Timeslot> result) {
-		if (timetable.size() == 1) {
-			result.add(timetable.get(0));
-			return;
-		}
 
-		double min = Double.MAX_VALUE;
-		int minIdx = 0;
-		for (int i=0; i<timetable.size(); i++) {
-			if (timetable.get(i).getStartTime()+(timetable.get(i).getDay()-1)*24 < min) {
-				min = timetable.get(i).getStartTime()+(timetable.get(i).getDay()-1)*24;
-				minIdx = i;
-			}
-		}
-
-		result.add(timetable.get(minIdx));
-		timetable.remove(minIdx);
-		sortByStartTime(timetable, result);
-	}
 
 	/**
 	 * Permutate.

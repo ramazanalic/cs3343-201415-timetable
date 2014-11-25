@@ -19,11 +19,11 @@ public class TimeGapConstraint implements Constraint {
 	 * @param timeDifference the time difference
 	 */
 	public TimeGapConstraint(Timetable timetable, double timeDifference) {
-		ArrayList<Timeslot> r = new ArrayList<Timeslot>();
-		Schedule.sortByStartTime(timetable, r);
+		Timetable sorted = new Timetable();
+		timetable.sortByStartTime(sorted);
 		
-		for (int i=0; i<r.size()-1; i++) {
-			if ((r.get(i).getDay() == r.get(i+1).getDay()) && (r.get(i+1).getStartTime() - r.get(i).getFinishTime() > timeDifference)) {
+		for (int i=0; i<sorted.size()-1; i++) {
+			if ((sorted.get(i).getDay() == sorted.get(i+1).getDay()) && (sorted.get(i+1).getStartTime() - sorted.get(i).getFinishTime() > timeDifference)) {
 				this.fulfilled = false;
 				break;
 			}
