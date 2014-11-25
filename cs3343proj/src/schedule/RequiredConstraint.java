@@ -19,14 +19,14 @@ public class RequiredConstraint implements Constraint{
 	/**
 	 * Instantiates a new required constraint.
 	 *
-	 * @param timeslots the timeslots
+	 * @param l the timeslots
 	 * @param listOfCrns the list of crns
 	 */
-	public RequiredConstraint(ArrayList<Timeslot> timeslots, ArrayList<String> listOfCrns) {
+	public RequiredConstraint(Timetable l, ArrayList<String> listOfCrns) {
 		boolean found = true;
 		for (String i : listOfCrns) {
 			boolean foundi = false;
-			for (Timeslot s : timeslots)
+			for (Timeslot s : l.getTimeslots())
 				if (i.equals(s.getCrn())) {
 					foundi = true;
 				}

@@ -22,9 +22,9 @@ public class BuildingConstraint implements Constraint{
 	 * @param timeslots the timeslots
 	 * @param listOfBldgs the list of bldgs
 	 */
-	public BuildingConstraint(ArrayList<Timeslot> timeslots, ArrayList<String> listOfBldgs) {
+	public BuildingConstraint(Timetable timeslots, ArrayList<String> listOfBldgs) {
 		for (String i : listOfBldgs) {
-			for (Timeslot s : timeslots) {
+			for (Timeslot s : timeslots.getTimeslots()) {
 				if (i.equals(s.getBuilding())) {
 					System.out.println("Found " + i);
 					this.fulfilled = false;

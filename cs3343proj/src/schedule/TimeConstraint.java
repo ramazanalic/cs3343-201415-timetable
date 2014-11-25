@@ -18,9 +18,8 @@ public class TimeConstraint implements Constraint {
 	 * @param t the t
 	 * @param daytimeExcluded the daytime excluded
 	 */
-	public TimeConstraint(ArrayList<Timeslot> t, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {
-
-		for (Timeslot i : t) {
+	public TimeConstraint(Timetable timetable, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {
+		for (Timeslot i : timetable.getTimeslots()) {
 			if (daytimeExcluded.containsKey(i.getDay())) {
 				for (double j : daytimeExcluded.get(i.getDay())) {
 					if (j < i.getFinishTime() && j >= i.getStartTime()) {
@@ -30,8 +29,6 @@ public class TimeConstraint implements Constraint {
 				}
 			}
 		}
-		
-
 	}
 	
 	/**

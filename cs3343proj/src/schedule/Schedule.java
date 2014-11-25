@@ -28,7 +28,7 @@ public class Schedule {
 		
 		String inputFile = args[0];
 		
-		readTimeslots(timeslots, inputFile); //Extract method
+		IO.readTimeslots(timeslots, inputFile); //Extract method
 		//System.out.println(timeslots.size());
 		
 		// validate input
@@ -88,7 +88,7 @@ public class Schedule {
 		//for (ArrayList<Timeslot> i : allPerm.get(0))
 		//System.out.println(i);
 
-		ArrayList<ArrayList<Timeslot>> validPermutatedUniqueCourseTimeslotsList = new ArrayList<ArrayList<Timeslot>>();
+		ArrayList<Timetable> validPermutatedUniqueCourseTimeslotsList = new ArrayList<Timetable>();
 		for (ArrayList<Timeslot> i : allPerm.get(0)) {
 			boolean overlap = false;
 			for (Timeslot j : i) {
@@ -102,8 +102,11 @@ public class Schedule {
 					}
 				}
 			}
-			if (!overlap)
-				validPermutatedUniqueCourseTimeslotsList.add(i);
+			if (!overlap){
+				Timetable timetable = new Timetable(i);
+				validPermutatedUniqueCourseTimeslotsList.add(timetable);
+			}
+				
 		}
 
 		int numValidCombinations = validPermutatedUniqueCourseTimeslotsList.size();
@@ -121,17 +124,18 @@ public class Schedule {
 		listOfCrns.add("60002");
 		listOfCrns.add("50005");
 
-		int count = 0;
+		//int count = 0;
 		for (int i=0; i < validPermutatedUniqueCourseTimeslotsList.size(); i++) {
-			ArrayList<Timeslot> l = validPermutatedUniqueCourseTimeslotsList.get(i);
+			Timetable l = validPermutatedUniqueCourseTimeslotsList.get(i);
 			RequiredConstraint rc = new RequiredConstraint(l, listOfCrns);
 			//System.out.println("slot 0 fulfilled: " + rc.isFulfilled());
-			if (rc.isFulfilled()) {printSchedule(validPermutatedUniqueCourseTimeslotsList.get(i)); break; }//System.out.println(); count++;}
+			if (rc.isFulfilled()) 
+			{
+				IO.printSchedule(validPermutatedUniqueCourseTimeslotsList.get(i)); 
+				break; 
+				}//System.out.println(); count++;}
 		}
 		//System.out.println(count);
-		
-		
-		
 		
 		
 		
@@ -141,62 +145,6 @@ public class Schedule {
 		
 		// Export to ICS
 		// http://stackoverflow.com/questions/10551776/time-format-used-in-ics-file
-		
-	}
-
-
-	/**
-	 * Read timeslots from a file.
-	 *
-	 * @param timeslots the array list storing timeslots
-	 * @param fn the file name
-	 */
-	public static void readTimeslots(ArrayList<Timeslot> timeslots, String fn) {
-		String currentLine;
-		String[][] courseData = new String[255][8];
-		int counter = 0;
-		try (BufferedReader br = new BufferedReader(new FileReader(fn)))
-		{
-			while ((currentLine = br.readLine()) != null)
-			{
-				String[] temp = currentLine.split(",");
-
-				for (int i=0; i<8; i++)
-					courseData[counter][i] = temp[i];
-
-				double st = 
-						Math.round(Double.parseDouble(courseData[counter][5].substring(0, 2)) +
-								Double.parseDouble(courseData[counter][5].substring(3, 5)) / 60);
-				double ft =
-						Math.round(Double.parseDouble(courseData[counter][6].substring(0, 2)) +
-								Double.parseDouble(courseData[counter][6].substring(3, 5)) / 60);
-				int dia = 0;
-				for (Weekday dayi : Weekday.values()) {
-					if (dayi.toString().equals(courseData[counter][7])) { 
-						dia = dayi.day;
-					}
-				}
-
-				Timeslot t = new Timeslot(
-						courseData[counter][0],
-						courseData[counter][1],
-						courseData[counter][2],
-						courseData[counter][3],
-						courseData[counter][4],
-						st,
-						ft,
-						dia
-						);
-				timeslots.add(t);
-
-				counter++;
-			}
-		}
-		
-		catch (IOException e)
-		{
-			e.printStackTrace(); //1% statement coverage
-		}
 		
 	}
 
@@ -302,27 +250,27 @@ public class Schedule {
 	/**
 	 * Sort the given timeslots by start time.
 	 *
-	 * @param timeslots the timeslots
+	 * @param timetable the timeslots
 	 * @param result the sorted timeslots by start time
 	 */
-	public static void sortByStartTime(ArrayList<Timeslot> timeslots, ArrayList<Timeslot> result) {
-		if (timeslots.size() == 1) {
-			result.add(timeslots.get(0));
+	public static void sortByStartTime(Timetable timetable, ArrayList<Timeslot> result) {
+		if (timetable.size() == 1) {
+			result.add(timetable.get(0));
 			return;
 		}
 
 		double min = Double.MAX_VALUE;
 		int minIdx = 0;
-		for (int i=0; i<timeslots.size(); i++) {
-			if (timeslots.get(i).getStartTime()+(timeslots.get(i).getDay()-1)*24 < min) {
-				min = timeslots.get(i).getStartTime()+(timeslots.get(i).getDay()-1)*24;
+		for (int i=0; i<timetable.size(); i++) {
+			if (timetable.get(i).getStartTime()+(timetable.get(i).getDay()-1)*24 < min) {
+				min = timetable.get(i).getStartTime()+(timetable.get(i).getDay()-1)*24;
 				minIdx = i;
 			}
 		}
 
-		result.add(timeslots.get(minIdx));
-		timeslots.remove(minIdx);
-		sortByStartTime(timeslots, result);
+		result.add(timetable.get(minIdx));
+		timetable.remove(minIdx);
+		sortByStartTime(timetable, result);
 	}
 
 	/**
@@ -386,79 +334,6 @@ public class Schedule {
 		return GeneratePermutations(list);
 	}
 
-	/**
-	 * Prints the schedule header to console.
-	 *
-	 * 
-	 */
-	public static String printScheduleHeader()
-	{
-		return("                                       |-------------------------|                                       \n                                       |   Visualized timetable  |                                       \n|------------|------------|------------|------------|------------|------------|------------|------------|\n|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
-	}
-	
-	/**
-	 * Prints the schedule to console.
-	 *
-	 * @param timeslots the entire schedule
-	 */
-	public static void printSchedule(ArrayList<Timeslot> timeslots)
-	{
-		int startTime = 8;
-
-		String stringStart;
-		String stringEnd;
-		boolean filled = false;
-
-		System.out.println(printScheduleHeader());
-		//System.out.println("                                       |-------------------------|                                       ");
-		//System.out.println("                                       |   Visualized timetable  |                                       ");
-		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
-		//System.out.println("|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
-		
-		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
-		for (int i = 0; i < 15; i++)
-		{
-			stringStart = String.valueOf(startTime) + "00";
-			stringEnd = String.valueOf(startTime) + "50";
-
-			while (stringStart.length() < 4)
-				stringStart = "0" + stringStart;
-
-			while (stringEnd.length() < 4)
-				stringEnd = "0" + stringEnd;
-
-			System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
-
-			System.out.print("|" + stringStart + "-" + stringEnd + "   |");
-
-			for (int j = 1; j <= 7; j++)
-			{
-				for (int k = 0; k < timeslots.size(); k++)
-				{
-					if (j == timeslots.get(k).getDay() && timeslots.get(k).getStartTime() <= startTime && timeslots.get(k).getFinishTime() >= startTime+1)
-					{
-						//System.out.print(timeslots.get(k).getCrn() + "       |");
-						System.out.print(timeslots.get(k).getCode() + "-" + timeslots.get(k).getSession() + "  |");
-						filled = true;
-					}
-				}
-
-				if (filled == false)
-					System.out.print("            |");
-
-				filled = false;
-			}
-
-			System.out.println();
-
-			stringStart = null;
-			stringEnd = null;
-
-			startTime += 1;
-		}
-
-		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
-	}
 
 	/**
 	 * To generate an array list of time before a given time t.
