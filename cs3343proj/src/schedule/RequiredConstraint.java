@@ -32,7 +32,6 @@ public class RequiredConstraint implements Constraint{
 				}
 			found &= foundi;
 		}
-		
 		this.fulfilled = found;
 	}
 

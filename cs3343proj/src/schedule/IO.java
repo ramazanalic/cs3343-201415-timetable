@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class IO {
-
+	private static String inputString;
 
 	/**
 	 * Read timeslots from a file.
@@ -56,18 +56,18 @@ public class IO {
 				counter++;
 			}
 		}
-		
+
 		catch (IOException e)
 		{
 			e.printStackTrace(); //1% statement coverage
 		}
-		
+
 	}
 
 
 	/**
 	 * Prints the schedule to console.
-	 *
+	 * @author YC Yau, TH Kwan
 	 * @param timetable the entire schedule
 	 */
 	public static void printSchedule(Timetable timetable)
@@ -83,7 +83,7 @@ public class IO {
 		//System.out.println("                                       |   Visualized timetable  |                                       ");
 		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 		//System.out.println("|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
-		
+
 		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 		for (int i = 0; i < 15; i++)
 		{
@@ -128,7 +128,7 @@ public class IO {
 
 		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 	}
-	
+
 	public static void printCRNs(Timetable timetable)
 	{
 		System.out.print("List of CRNs: [");
@@ -141,75 +141,117 @@ public class IO {
 		}
 		System.out.println("]");
 	}
-	
+
 	public static void printTimetable(ArrayList<Timetable> listOfTimetables)
 	{
 		int numPosTimetables = listOfTimetables.size();
-		int chosen = -1;
+		//int chosen = -1;
+
+		/*
+		while (true)
+		{
+			System.out.println("\n\nPlease enter a number between 1 and " + numPosTimetables + ", or -1 to finish.");
+			inputString = readInputFromConsole();
+			try
+			{
+				chosen = Integer.parseInt(inputString);
+			}
+			catch (NumberFormatException e) {
+				System.out.println("You can only input a valid integer.");
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println("You can only input a valid integer.");
+			}
+			if (chosen == -1)
+				break;
+			printSchedule(listOfTimetables.get(chosen-1));
+			printCRNs(listOfTimetables.get(chosen-1));
+		}
+		 */
+		int randomIdx = (int) (Math.random() * numPosTimetables);
+		System.out.println("Timetable " + (randomIdx+1) + ":");
 		
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			while (true)
-			{
-				System.out.println("\n\nPlease enter a number between 1 and " + numPosTimetables + ", or -1 to finish.");
-				chosen = Integer.parseInt(br.readLine());
-				if (chosen == -1)
-					break;
-				printSchedule(listOfTimetables.get(chosen-1));
-				printCRNs(listOfTimetables.get(chosen-1));
-			}
-		} catch (IOException e) {
-			System.out.println("An error occured.");
-			//e.printStackTrace();
-		} catch (NumberFormatException e) {
-			System.out.println("You can only input a valid integer.");
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("You can only input a valid integer.");
-		}
+		printSchedule(listOfTimetables.get(randomIdx));
+		printCRNs(listOfTimetables.get(randomIdx));
+		
 	}
-
-	public static ArrayList<String> readRequiredConstraints()
+/*
+	public static String readInputFromConsole()
 	{
-		System.out.println("Please enter the CRN of courses which must be taken, or -1 to continue to next step.");
-		ArrayList<String> ret = new ArrayList<String>();
-		String crn;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
-			while (true)
-			{
-				crn = br.readLine();
-				if (crn.compareTo("-1") == 0)
-					break;
-				ret.add(crn);
-			}
+			return br.readLine();
 		} catch (IOException e) {
 			System.out.println("An error occured.");
 			//e.printStackTrace();
 		}
+		return "-1";
+	}
+*/
+	public static ArrayList<String> readRequiredConstraints(String filename)
+	{
+		ArrayList<String> ret = new ArrayList<String>();
+		String currentLine;
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filename)))
+		{
+			while ((currentLine = br.readLine()) != null)
+			{
+				ret.add(currentLine.replace("\r\n", "").replace("\n", ""));
+			}
+		}
+		catch (IOException e)
+		{
+			System.out.println("You should input valid data in \"TheseCRNsMustBeIncluded.txt\".");
+		}
+
 		return ret;
 	}
-	
-	public static ArrayList<String> readBuildingConstraints()
+
+	public static ArrayList<String> readBuildingConstraints(String filename)
 	{
-		System.out.println("Please enter the acronym of the building which you do NOT want to have class in, or -1 to continue to next step.");
 		ArrayList<String> ret = new ArrayList<String>();
-		String bldg;
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			while (true)
+		String currentLine;
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filename)))
+		{
+			while ((currentLine = br.readLine()) != null)
 			{
-				bldg = br.readLine();
-				if (bldg.compareTo("-1") == 0)
-					break;
-				ret.add(bldg);
+				ret.add(currentLine.replace("\r\n", "").replace("\n", ""));
 			}
-		} catch (IOException e) {
-			System.out.println("An error occured.");
-			//e.printStackTrace();
 		}
+		catch (IOException e)
+		{
+			System.out.println("You should input valid data in \"NoClassInTheseBuildings.txt\".");
+		}
+
 		return ret;
 	}
-	
-	
+
+	public static double readTimeGapConstraint(String filename)
+	{
+		ArrayList<String> ret = new ArrayList<String>();
+		String currentLine;
+
+		try (BufferedReader br = new BufferedReader(new FileReader(filename)))
+		{
+			currentLine = br.readLine();
+			if (currentLine != null)
+			{
+				currentLine = currentLine.replace("\r\n", "").replace("\n", "").replace(" ", "");
+				return Double.parseDouble(currentLine); 
+			}
+		}
+		catch (IOException e)
+		{
+			System.out.println("You should input a valid number to indicate the maximum time between 2 sessions in \"MaxTimeBetween2Sessions.txt\".");
+		}
+		catch (NumberFormatException e)
+		{
+			return 0;
+		}
+
+		return -1;
+	}
+
+
 }

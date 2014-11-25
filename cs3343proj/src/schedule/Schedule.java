@@ -128,14 +128,12 @@ public class Schedule {
 		else
 			System.out.println("There are " + numValidCombinations + " possible combinations.");
 
-
-
 		// filter Timeslot according to constraints
 
 
-		ArrayList<String> listOfCrns = IO.readRequiredConstraints();
-		ArrayList<String> listOfBldgs = IO.readBuildingConstraints();
-		
+		ArrayList<String> listOfCrns = IO.readRequiredConstraints("TheseCRNsMustBeIncluded.txt");
+		ArrayList<String> listOfBldgs = IO.readBuildingConstraints("NoClassInTheseBuildings.txt");
+		double timeDifference = IO.readTimeGapConstraint("MaxTimeBetween2Sessions.txt");
 		//listOfCrns.add("60002");
 		//listOfCrns.add("50005");
 
@@ -144,9 +142,13 @@ public class Schedule {
 			Timetable l = validPermutatedUniqueCourseTimeslotsList.get(i);
 			RequiredConstraint rc = new RequiredConstraint(l, listOfCrns);
 			BuildingConstraint bc = new BuildingConstraint(l, listOfBldgs);
-			if (rc.isFulfilled() && bc.isFulfilled()) 
+			TimeGapConstraint tc = new TimeGapConstraint(l, timeDifference);
+			//TimeGapConstraint
+			
+			if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled()) 
 			{
 				listOfTimetables.add(l);
+				
 			}
 		}
 		
@@ -157,8 +159,10 @@ public class Schedule {
 			return;
 		}
 		else
-			System.out.println("There are " + numPosTimetables + " possible timetables.");
+			System.out.println("There are " + numPosTimetables + " timetables available.");
 
+		
+		
 		IO.printTimetable(listOfTimetables);
 		
 	}
