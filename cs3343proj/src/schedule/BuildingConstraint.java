@@ -14,7 +14,7 @@ public class BuildingConstraint implements Constraint{
 	/**
 	 * Instantiates a new building constraint.
 	 */
-	public BuildingConstraint() {}
+	//public BuildingConstraint() {}
 	
 	/**
 	 * Instantiates a new building constraint.

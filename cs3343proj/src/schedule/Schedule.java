@@ -24,7 +24,9 @@ public class Schedule {
 
 		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
 		
-		String inputFile = "CS3343_data2.txt"; 
+		//String inputFile = "CS3343_data2.txt"; 
+		
+		String inputFile = args[0];
 		
 		readTimeslots(timeslots, inputFile); //Extract method
 		//System.out.println(timeslots.size());
@@ -35,7 +37,6 @@ public class Schedule {
 		// input and validate constraints
 		//parseInputFile(inputFile, timeConstraint, timeGapConstraint, requiredConstraint, buildingConstraint);
 		
-
 
 		ArrayList<String> uniqueCourses = allCourses(timeslots);
 		HashMap<String,HashMap<String,ArrayList<Timeslot>>> uniqueCourseTimeslots = new HashMap<String,HashMap<String,ArrayList<Timeslot>>>();
@@ -61,7 +62,7 @@ public class Schedule {
 			uniqueCourseTimeslots.put(i, slot);
 
 		}
-		System.out.println(uniqueCourseTimeslots);
+		//System.out.println(uniqueCourseTimeslots);
 
 		HashMap<String,ArrayList<ArrayList<Timeslot>>> permutatedUniqueCourseTimeslots = new HashMap<String,ArrayList<ArrayList<Timeslot>>>();
 		ArrayList<ArrayList<ArrayList<Timeslot>>> permutatedUniqueCourseTimeslotsList = new ArrayList<ArrayList<ArrayList<Timeslot>>>();
@@ -75,7 +76,9 @@ public class Schedule {
 		//			System.out.println(i + " - " + permutatedUniqueCourseTimeslots.get(i).size());
 		//		}
 		//System.out.println(permutatedUniqueCourseTimeslots);
+		//System.out.println("****");
 		//System.out.println(permutatedUniqueCourseTimeslotsList);
+		//System.out.println("****");
 		//		
 		//		System.out.println("=========");
 
@@ -105,7 +108,7 @@ public class Schedule {
 
 		int numValidCombinations = validPermutatedUniqueCourseTimeslotsList.size();
 		if (numValidCombinations == 0)
-			System.out.println("There is no possible combination i.e. You should remove at least 1 course");
+			System.out.println("There is no possible combination i.e. You should remove at least 1 course.");
 		else
 			System.out.println("There are " + numValidCombinations + " possible combinations.");
 
@@ -189,10 +192,12 @@ public class Schedule {
 				counter++;
 			}
 		}
+		
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			e.printStackTrace(); //1% statement coverage
 		}
+		
 	}
 
 	/**
@@ -201,12 +206,9 @@ public class Schedule {
 	 * @param timeslots the timeslots
 	 * @return true, if successful
 	 */
+	/*
 	public static boolean validateInput(ArrayList<Timeslot> timeslots) { //Extract Method
 		for (Timeslot i : timeslots) {
-
-
-
-
 
 		}
 
@@ -224,7 +226,7 @@ public class Schedule {
 
 		return true;
 	}
-
+	 */
 	/**
 	 * All courses.
 	 *
@@ -385,6 +387,16 @@ public class Schedule {
 	}
 
 	/**
+	 * Prints the schedule header to console.
+	 *
+	 * 
+	 */
+	public static String printScheduleHeader()
+	{
+		return("                                       |-------------------------|                                       \n                                       |   Visualized timetable  |                                       \n|------------|------------|------------|------------|------------|------------|------------|------------|\n|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
+	}
+	
+	/**
 	 * Prints the schedule to console.
 	 *
 	 * @param timeslots the entire schedule
@@ -397,10 +409,12 @@ public class Schedule {
 		String stringEnd;
 		boolean filled = false;
 
-		System.out.println("                                       |-------------------------|                                       ");
-		System.out.println("                                       |   Visualized timetable  |                                       ");
-		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
-		System.out.println("|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
+		System.out.println(printScheduleHeader());
+		//System.out.println("                                       |-------------------------|                                       ");
+		//System.out.println("                                       |   Visualized timetable  |                                       ");
+		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
+		//System.out.println("|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |");
+		
 		//System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 		for (int i = 0; i < 15; i++)
 		{

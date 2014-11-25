@@ -14,7 +14,7 @@ public class RequiredConstraint implements Constraint{
 	/**
 	 * Instantiates a new required constraint.
 	 */
-	public RequiredConstraint() {}
+	//public RequiredConstraint() {}
 	
 	/**
 	 * Instantiates a new required constraint.
