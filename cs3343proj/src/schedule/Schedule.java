@@ -8,8 +8,10 @@ public class Schedule {
 	public static void main(String[] args) {
 
 		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
-		readTimeslots(timeslots, "CS3343_data.txt"); //Extract method
+		readTimeslots(timeslots, "CS3343_data2.txt"); //Extract method
 		//System.out.println(timeslots.size());
+		
+		
 		// validate input
 
 		// input constraints
@@ -21,8 +23,11 @@ public class Schedule {
 			
 			ArrayList<Timeslot> allLectures = extractTimeslotsByType(t, "Lecture");
 			ArrayList<Timeslot> allTutorials = extractTimeslotsByType(t, "Tutorial");
+
+			// filter Timeslot according to constraints
 			
-//			System.out.println(i);
+			
+			
 //			System.out.println(allLectures.size());
 //			System.out.println(allTutorials.size());
 			
@@ -35,18 +40,69 @@ public class Schedule {
 			uniqueCourseTimeslots.put(i, slot);
 			
 		}
-		//System.out.println(uniqueCourseTimeslots);
+		System.out.println(uniqueCourseTimeslots);
 		
 		HashMap<String,ArrayList<ArrayList<Timeslot>>> permutatedUniqueCourseTimeslots = new HashMap<String,ArrayList<ArrayList<Timeslot>>>();
+		ArrayList<ArrayList<ArrayList<Timeslot>>> permutatedUniqueCourseTimeslotsList = new ArrayList<ArrayList<ArrayList<Timeslot>>>();
 		
 		for (String i : uniqueCourses) {
 			permutatedUniqueCourseTimeslots.put(i, permutate(uniqueCourseTimeslots.get(i).get("Lecture"), uniqueCourseTimeslots.get(i).get("Tutorial")));
+			permutatedUniqueCourseTimeslotsList.add(permutate(uniqueCourseTimeslots.get(i).get("Lecture"), uniqueCourseTimeslots.get(i).get("Tutorial")));
 		}
+		
+//		for (String i : uniqueCourses) {
+//			System.out.println(i + " - " + permutatedUniqueCourseTimeslots.get(i).size());
+//		}
 		//System.out.println(permutatedUniqueCourseTimeslots);
-
-		ArrayList<ArrayList<Timeslot>> AllCombinationsAmongCourses = new ArrayList<ArrayList<Timeslot>>();
+		//System.out.println(permutatedUniqueCourseTimeslotsList);
+//		
+//		System.out.println("=========");
+						
 		//permutate all lists
-
+		ArrayList<ArrayList<ArrayList<Timeslot>>> allPerm = GeneratePermutations(permutatedUniqueCourseTimeslotsList);
+		//System.out.println(allPerm.get(0).size());
+		//for (ArrayList<Timeslot> i : allPerm.get(0))
+			//System.out.println(i);
+		
+		ArrayList<ArrayList<Timeslot>> validPermutatedUniqueCourseTimeslotsList = new ArrayList<ArrayList<Timeslot>>();
+		for (ArrayList<Timeslot> i : allPerm.get(0)) {
+			boolean overlap = false;
+			for (Timeslot j : i) {
+				for (Timeslot k : i) {
+					if (j.equals(k)) {
+						break;
+					}
+					if (j.overlap(k)) {
+						overlap = true;
+						break;
+					}
+				}
+			}
+			if (!overlap)
+				validPermutatedUniqueCourseTimeslotsList.add(i);
+		}
+		
+		int numValidCombinations = validPermutatedUniqueCourseTimeslotsList.size();
+		if (numValidCombinations == 0)
+			System.out.println("There is no possible combination i.e. You should remove at least 1 course");
+		else
+			System.out.println("There are " + numValidCombinations + " possible combination.");
+		
+		printSchedule(validPermutatedUniqueCourseTimeslotsList.get(1372));
+		
+		// filter Timeslot according to constraints
+		
+		
+		ArrayList<String> listOfCrns = new ArrayList<String>();
+		listOfCrns.add("60002");
+		listOfCrns.add("50005");
+		
+		for (int i=0; i < validPermutatedUniqueCourseTimeslotsList.size(); i++) {
+			ArrayList<Timeslot> l = validPermutatedUniqueCourseTimeslotsList.get(i);
+			RequiredConstraint rc = new RequiredConstraint(l, listOfCrns);
+			//System.out.println("slot 0 fulfilled: " + rc.isFulfilled());
+			if (rc.isFulfilled()) {System.out.println(i); break;}
+		}
 	}
 
 
@@ -157,7 +213,7 @@ public static ArrayList<Timeslot> extractTimeslotsByCode(ArrayList<Timeslot> tim
 	return t;
 }
 
-private static ArrayList<Timeslot> extractTimeslotsByType(ArrayList<Timeslot> timeslots, String type) {
+public static ArrayList<Timeslot> extractTimeslotsByType(ArrayList<Timeslot> timeslots, String type) {
 	ArrayList<Timeslot> t = new ArrayList<Timeslot>();
 	for (Timeslot i : timeslots)
 		if (i.getType().equals(type))
@@ -165,7 +221,7 @@ private static ArrayList<Timeslot> extractTimeslotsByType(ArrayList<Timeslot> ti
 	return t;
 }
 
-private static ArrayList<ArrayList<Timeslot>> permutate(ArrayList<Timeslot> list1, ArrayList<Timeslot> list2) {
+public static ArrayList<ArrayList<Timeslot>> permutate(ArrayList<Timeslot> list1, ArrayList<Timeslot> list2) {
 	ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
 	
 	for (Timeslot i: list1) {
@@ -176,9 +232,45 @@ private static ArrayList<ArrayList<Timeslot>> permutate(ArrayList<Timeslot> list
 			res.add(t);
 		}
 	}
-	
-	
 	return res;
+}
+
+public static ArrayList<ArrayList<Timeslot>> permutateArrayList(ArrayList<ArrayList<Timeslot>> list1, ArrayList<ArrayList<Timeslot>> list2) {
+	ArrayList<ArrayList<Timeslot>> res = new ArrayList<ArrayList<Timeslot>>();
+	
+	for (ArrayList<Timeslot> i: list1) {
+		for (ArrayList<Timeslot> j: list2) {
+			ArrayList<Timeslot> t = new ArrayList<Timeslot>();
+			t.addAll(i);
+			t.addAll(j);
+			res.add(t);
+		}
+	}
+	return res;
+}
+
+public static ArrayList<ArrayList<ArrayList<Timeslot>>> GeneratePermutations(ArrayList<ArrayList<ArrayList<Timeslot>>> list)//, ArrayList<Timeslot> result, int depth, ArrayList<Timeslot> current)
+{
+	if (list.size() == 1)
+		return list;
+
+	ArrayList<ArrayList<Timeslot>> t = permutateArrayList(list.get(0), list.get(1));
+	list.add(t);
+	list.remove(1);
+	list.remove(0);
+	
+	return GeneratePermutations(list);
+	
+//    if(depth == allTimeslots.size())
+//    {
+//       result.add(current);
+//       return;
+//     }
+//
+//    for(int i = 0; i < Lists.get(depth).size(); ++i)
+//    {
+//        GeneratePermutations(Lists, result, depth + 1, current + Lists.get(depth).get(i));
+//    }
 }
 
 public static void printSchedule(ArrayList<Timeslot> timeslots)
@@ -215,7 +307,8 @@ public static void printSchedule(ArrayList<Timeslot> timeslots)
 			{
 				if (j == timeslots.get(k).getDay() && timeslots.get(k).getStartTime() <= startTime && timeslots.get(k).getFinishTime() >= startTime+1)
 				{
-					System.out.print(timeslots.get(k).getCrn() + "       |");
+					//System.out.print(timeslots.get(k).getCrn() + "       |");
+					System.out.print(timeslots.get(k).getCode() + "-" + timeslots.get(k).getSession() + "  |");
 					filled = true;
 				}
 			}

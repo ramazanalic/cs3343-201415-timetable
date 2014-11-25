@@ -1,8 +1,6 @@
 package schedule;
 
-public class Constraint {
+public interface Constraint {
 
-	public Constraint() {
-		
-	}
+	boolean fulfilled = true;
 }

@@ -1,9 +1,12 @@
 package schedule;
 
-public class TimeConstraint extends Constraint {
+public class TimeConstraint implements Constraint {
+	private boolean fulfilled = true;
 
-	public TimeConstraint() {
-		
+	public TimeConstraint(Timeslot t) {
+		// no course before
+		// no course after
+		// no course during
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.*;
 
+import schedule.RequiredConstraint;
 import schedule.Schedule;
 import schedule.Timeslot;
 import schedule.Weekday;
@@ -164,4 +165,32 @@ public class TestSchedule extends TestCase{
 				result = false;
 		assertEquals(result, false);
 	}
+	
+	// Test case 11: Test extract by code
+	@Test
+	public void testRequiredConstraint() {
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+		Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11.5, Weekday.Tue.getDay());
+		Timeslot d = new Timeslot("40004","CS3201","CA1", "AC3", "6208", 10, 12, Weekday.Tue.getDay());
+		Timeslot e = new Timeslot("40005","CS3443","CB1", "AC1", "LT-2", 12, 16, Weekday.Tue.getDay());
+		timeslots.add(a);
+		timeslots.add(b);
+		timeslots.add(c);
+		timeslots.add(d);
+		timeslots.add(e);
+
+		ArrayList<String> listOfCrns = new ArrayList<String>();
+		listOfCrns.add("40001");
+		listOfCrns.add("40005");
+		RequiredConstraint rc = new RequiredConstraint(timeslots, listOfCrns);
+		assertEquals(rc.isFulfilled(), true);
+		
+		listOfCrns.clear();
+		listOfCrns.add("40001");
+		listOfCrns.add("40007");
+		rc = new RequiredConstraint(timeslots, listOfCrns);
+		assertEquals(rc.isFulfilled(), false);
+	}
+	
 }
