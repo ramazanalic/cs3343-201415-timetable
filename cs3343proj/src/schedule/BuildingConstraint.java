@@ -8,17 +8,15 @@ public class BuildingConstraint implements Constraint{
 	public BuildingConstraint() {}
 	
 	public BuildingConstraint(ArrayList<Timeslot> timeslots, ArrayList<String> listOfBldgs) {
-		boolean found = true;
 		for (String i : listOfBldgs) {
-			boolean foundi = false;
-			for (Timeslot s : timeslots)
+			for (Timeslot s : timeslots) {
 				if (i.equals(s.getBuilding())) {
-					foundi = true;
+					System.out.println("Found " + i);
+					this.fulfilled = false;
+					break;
 				}
-			found &= foundi;
+			}
 		}
-		
-		this.fulfilled = found;
 	}
 
 	public boolean isFulfilled() {

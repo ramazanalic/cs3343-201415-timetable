@@ -5,37 +5,26 @@ import java.util.HashMap;
 
 public class TimeConstraint implements Constraint {
 	private boolean fulfilled = true;
+	
+	public TimeConstraint(ArrayList<Timeslot> t, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {
 
-	public TimeConstraint(Timeslot t, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {
+		for (Timeslot i : t) {
+			if (daytimeExcluded.containsKey(i.getDay())) {
+				for (double j : daytimeExcluded.get(i.getDay())) {
+					if (j < i.getFinishTime() && j >= i.getStartTime()) {
+						this.fulfilled = false;
+						break;
+					}
+				}
+			}
+		}
 		
-		//daytimeExcluded.put(key, value);
-		
-		// no course before
-		// no course after
-		// no course between
+
 	}
 	
-	private ArrayList<Double> before(ArrayList<Timeslot> list, double t) {
-		double firstTime = 8.0;
-		double lastTime = 22.0;
-		// eg < 10am = 8, 9
-		// eg >= 3pm = 15, 17, 18, .., 22
-		return new ArrayList<Double>();
+	public boolean isFulfilled() {
+		return fulfilled;
 	}
+
 	
-	private ArrayList<Double> after(ArrayList<Timeslot> list, double t) {
-		double firstTime = 8.0;
-		double lastTime = 22.0;
-		// eg < 10am = 8, 9
-		// eg >= 3pm = 15, 17, 18, .., 22
-		return new ArrayList<Double>();
-	}
-	
-	private ArrayList<Double> between(ArrayList<Timeslot> list, double t) {
-		double firstTime = 8.0;
-		double lastTime = 22.0;
-		// eg < 10am = 8, 9
-		// eg >= 3pm = 15, 17, 18, .., 22
-		return new ArrayList<Double>();
-	}
 }
