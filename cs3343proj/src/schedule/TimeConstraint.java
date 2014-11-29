@@ -15,7 +15,7 @@ public class TimeConstraint implements Constraint {
 	/**
 	 * Instantiates a new time constraint.
 	 *
-	 * @param t the t
+	 * @param timetable the timetable
 	 * @param daytimeExcluded the daytime excluded
 	 */
 	public TimeConstraint(Timetable timetable, HashMap<Integer,ArrayList<Double>> daytimeExcluded) {

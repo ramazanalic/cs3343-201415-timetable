@@ -13,6 +13,9 @@ public class BuildingConstraint implements Constraint{
 	
 	/**
 	 * Instantiates a new building constraint.
+	 *
+	 * @param timeslots the timeslots
+	 * @param listOfBldgs the list of bldgs
 	 */
 	//public BuildingConstraint() {}
 	

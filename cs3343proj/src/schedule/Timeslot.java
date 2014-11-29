@@ -71,6 +71,9 @@ public class Timeslot {
 	
 	/**
 	 * Instantiates a new timeslot.
+	 *
+	 * @param a the a
+	 * @return true, if successful
 	 */
 	/*
 	public Timeslot() {

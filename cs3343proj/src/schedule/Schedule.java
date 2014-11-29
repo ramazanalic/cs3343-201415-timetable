@@ -148,14 +148,11 @@ public class Schedule {
 			RequiredConstraint rc = new RequiredConstraint(l, listOfCrns);
 			BuildingConstraint bc = new BuildingConstraint(l, listOfBldgs);
 			TimeGapConstraint tc = new TimeGapConstraint(l, timeDifference);
-			//TimeGapConstraint
 			TimeConstraint timeConstraint = new TimeConstraint(l, listOfTime);
 			
-			//if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled())
 			if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled() && timeConstraint.isFulfilled())
 			{
 				listOfTimetables.add(l);
-				
 			}
 		}
 		
@@ -174,32 +171,4 @@ public class Schedule {
 		
 	}
 
-	/**
-	 * Validate input.
-	 *
-	 * @param timeslots the timeslots
-	 * @return true, if successful
-	 */
-	/*
-	public static boolean validateInput(ArrayList<Timeslot> timeslots) { //Extract Method
-		for (Timeslot i : timeslots) {
-
-		}
-
-		//Extract MethodSSSS
-
-		// check session first character
-
-		// check sufficient lecture/tutorials
-
-		// check building
-
-		// check start/finish time format and range
-
-		// check weekday
-
-		return true;
-	}
-	 */
-	
 }

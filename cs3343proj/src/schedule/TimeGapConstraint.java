@@ -15,7 +15,7 @@ public class TimeGapConstraint implements Constraint {
 	/**
 	 * Instantiates a new time gap constraint.
 	 *
-	 * @param t the t
+	 * @param timetable the timetable
 	 * @param timeDifference the time difference
 	 */
 	public TimeGapConstraint(Timetable timetable, double timeDifference) {

@@ -13,6 +13,9 @@ public class RequiredConstraint implements Constraint{
 	
 	/**
 	 * Instantiates a new required constraint.
+	 *
+	 * @param l the l
+	 * @param listOfCrns the list of crns
 	 */
 	//public RequiredConstraint() {}
 	

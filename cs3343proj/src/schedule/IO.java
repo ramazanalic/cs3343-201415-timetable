@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IO.
+ */
 public class IO {
+
+	/** The input string. */
 	private static String inputString;
 
 	/**
@@ -70,7 +76,7 @@ public class IO {
 
 	/**
 	 * Prints the schedule to console.
-	 * @author YC Yau, TH Kwan
+	 * @author YC Yau
 	 * @param timetable the entire schedule
 	 */
 	public static void printSchedule(Timetable timetable)
@@ -132,6 +138,11 @@ public class IO {
 		System.out.println("|------------|------------|------------|------------|------------|------------|------------|------------|");
 	}
 
+	/**
+	 * Prints the cr ns.
+	 *
+	 * @param timetable the timetable
+	 */
 	public static void printCRNs(Timetable timetable)
 	{
 		System.out.print("List of CRNs: [");
@@ -145,6 +156,11 @@ public class IO {
 		System.out.println("]");
 	}
 
+	/**
+	 * Prints the timetable.
+	 *
+	 * @param listOfTimetables the list of timetables
+	 */
 	public static void printTimetable(ArrayList<Timetable> listOfTimetables)
 	{
 		int numPosTimetables = listOfTimetables.size();
@@ -172,12 +188,12 @@ public class IO {
 		 */
 		int randomIdx = (int) (Math.random() * numPosTimetables);
 		System.out.println("Timetable " + (randomIdx+1) + ":");
-		
+
 		printSchedule(listOfTimetables.get(randomIdx));
 		printCRNs(listOfTimetables.get(randomIdx));
-		
+
 	}
-/*
+	/*
 	public static String readInputFromConsole()
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -189,36 +205,42 @@ public class IO {
 		}
 		return "-1";
 	}
-*/
-	
+	 */
+
+	/**
+	 * Read time constraints.
+	 *
+	 * @param filename the filename
+	 * @return the hash map
+	 */
 	public static HashMap<Integer,ArrayList<Double>> readTimeConstraints(String filename)
 	{
 		HashMap<Integer, ArrayList<Double>> dayTimeMap = new HashMap <Integer, ArrayList<Double>>();
-		
+
 		int[][] tempTime = new int[7][16];
-		
-		
-		
+
+
+
 		for (int i = 0; i < 7; i++)
 			for (int j = 0; j < 16; j++)
 				tempTime[i][j] = -1;
-		
+
 		String currentLine;
 
 		String[] constraint = new String[4];
-		
+
 		try (BufferedReader br = new BufferedReader(new FileReader(filename)))
 		{
 			while ((currentLine = br.readLine()) != null)
 			{	
 				String[] temp = currentLine.split("\t");
-				
+
 				if (currentLine.startsWith("#"))
 					continue;
-				
+
 				for (int i = 0; i < temp.length; i++)
 					constraint[i] = temp[i];
-				
+
 				//System.out.println("keyword:" + constraint[0]);
 				//System.out.println("value1:" + constraint[1]);
 				//System.out.println("value2:" + constraint[2]);
@@ -229,7 +251,7 @@ public class IO {
 					if (constraint[1].equals("Everyday"))
 						for (int i = 0; i < 7; i++)
 							Utilities.beforeTime(i, Integer.parseInt(constraint[2]), tempTime);
-					
+
 					else
 					{
 						for (Weekday dayi : Weekday.values())
@@ -246,7 +268,7 @@ public class IO {
 					if (constraint[1].equals("Everyday"))
 						for (int i = 0; i < 7; i++)
 							Utilities.afterTime(i, Integer.parseInt(constraint[2]), tempTime);
-					
+
 					else
 					{
 						for (Weekday dayi : Weekday.values())
@@ -263,7 +285,7 @@ public class IO {
 					if (constraint[1].equals("Everyday"))
 						for (int i = 0; i < 7; i++)
 							Utilities.betweenTime(i, Integer.parseInt(constraint[2]), Integer.parseInt(constraint[3]), tempTime);
-					
+
 					else
 					{
 						for (Weekday dayi : Weekday.values())
@@ -289,25 +311,25 @@ public class IO {
 				{
 					throw new IOException();
 				}
-				
+
 			}
-			
+
 			for (int i = 0; i < 7; i++)
 			{
 				ArrayList<Double> tempTimeList = new ArrayList<Double>();
-				
+
 				for (int j = 0; j < 16; j++)
 				{
 					if (tempTime[i][j] != -1)
 						tempTimeList.add((double)tempTime[i][j]);
 				}
-				
+
 				Collections.sort(tempTimeList);
-				
+
 				dayTimeMap.put(i, tempTimeList);
 			}
 		}
-		
+
 		catch (IOException e)
 		{
 			System.out.println("You should input valid data in \"TimeConstraints.txt\".");
@@ -315,7 +337,13 @@ public class IO {
 
 		return dayTimeMap;
 	}
-	
+
+	/**
+	 * Read required constraints.
+	 *
+	 * @param filename the filename
+	 * @return the array list
+	 */
 	public static ArrayList<String> readRequiredConstraints(String filename)
 	{
 		ArrayList<String> ret = new ArrayList<String>();
@@ -336,6 +364,12 @@ public class IO {
 		return ret;
 	}
 
+	/**
+	 * Read building constraints.
+	 *
+	 * @param filename the filename
+	 * @return the array list
+	 */
 	public static ArrayList<String> readBuildingConstraints(String filename)
 	{
 		ArrayList<String> ret = new ArrayList<String>();
@@ -356,6 +390,12 @@ public class IO {
 		return ret;
 	}
 
+	/**
+	 * Read time gap constraint.
+	 *
+	 * @param filename the filename
+	 * @return the double
+	 */
 	public static double readTimeGapConstraint(String filename)
 	{
 		ArrayList<String> ret = new ArrayList<String>();

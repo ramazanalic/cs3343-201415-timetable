@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Utilities.
+ */
 public class Utilities {
 	/** The first session's start time. */
 	public static double firstTime = 8.0;
-	
+
 	/** The last session's finish time. */
 	public static double lastTime = 23.0;
 
-	
+
 	/**
 	 * All courses.
 	 *
@@ -144,15 +148,16 @@ public class Utilities {
 	/**
 	 * To generate an array list of time before a given time t.
 	 *
+	 * @param day the day
 	 * @param t the given time t
-	 * @return the array list of time NOT before time t
+	 * @param tempTime the array list of time NOT before time t (result)
 	 */
 	public static void beforeTime(int day, int t, int[][] tempTime) {
 		int count = 0;
-		
+
 		while (tempTime[day][count] != -1)
 			count++;
-		
+
 		for (double k = firstTime; k < t; k++)
 		{
 			boolean exist = false;
@@ -161,7 +166,7 @@ public class Utilities {
 				if (k == tempTime[day][i])
 					exist = true;
 			}
-			
+
 			if (exist != true)
 			{
 				tempTime[day][count] = (int) k;
@@ -173,15 +178,16 @@ public class Utilities {
 	/**
 	 * To generate an array list of time after a given time t.
 	 *
+	 * @param day the day
 	 * @param t the given time t
-	 * @return the array list of time NOT after time t
+	 * @param tempTime the array list of time NOT after time t (result)
 	 */
 	public static void afterTime(int day, int t, int[][] tempTime) {
 		int count = 0;
-		
+
 		while (tempTime[day][count] != -1)
 			count++;
-		
+
 		for (double k = t; k < lastTime; k++)
 		{			
 			boolean exist = false;
@@ -190,7 +196,7 @@ public class Utilities {
 				if (k == tempTime[day][i])
 					exist = true;
 			}
-			
+
 			if (exist != true)
 			{
 				tempTime[day][count] = (int) k;
@@ -198,14 +204,22 @@ public class Utilities {
 			}
 		}
 	}
-	
-	
+
+
+	/**
+	 * Between time.
+	 *
+	 * @param day the day
+	 * @param t1 the t1
+	 * @param t2 the t2
+	 * @param tempTime the temp time
+	 */
 	public static void betweenTime(int day, int t1, int t2, int[][] tempTime) {
 		int count = 0;
-		
+
 		while (tempTime[day][count] != -1)
 			count++;
-		
+
 		for (int k = t1; k < t2; k++)
 		{			
 			boolean exist = false;
@@ -214,7 +228,7 @@ public class Utilities {
 				if (k == tempTime[day][i])
 					exist = true;
 			}
-			
+
 			if (exist != true)
 			{
 				tempTime[day][count] = (int) k;
@@ -222,13 +236,14 @@ public class Utilities {
 			}
 		}
 	}
-	
+
+	/*
 	/**
 	 * To generate an array list of time before a given time t.
 	 *
 	 * @param t the given time t
 	 * @return the array list of time NOT before time t
-	 */
+	 *
 	public static ArrayList<Double> beforeTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = firstTime; i < t; i++) {
@@ -236,13 +251,14 @@ public class Utilities {
 		}
 		return listOfExcludedTime;
 	}
-
+	 */
+	/*
 	/**
 	 * To generate an array list of time after a given time t.
 	 *
 	 * @param t the given time t
 	 * @return the array list of time NOT after time t
-	 */
+	 *
 	public static ArrayList<Double> afterTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = t; i < lastTime; i++) {
@@ -250,13 +266,15 @@ public class Utilities {
 		}
 		return listOfExcludedTime;
 	}
-
+	 */
+	/*
 	/**
 	 * To generate an array list of time between 2 given times t1 and t2. (t1, t2]
 	 *
-	 * @param t1, t2 the given times
+	 * @param t1 the t1
+	 * @param t2 the t2
 	 * @return the array list of time NOT between t1 and t2
-	 */
+	 *
 	public static ArrayList<Double> betweenTime(double t1, double t2) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = t1; i < t2; i++) {
@@ -264,11 +282,19 @@ public class Utilities {
 		}
 		return listOfExcludedTime;
 	}
-
+	 */
+	/**
+	 * Validate input.
+	 *
+	 * @author YC Yau
+	 * @param timeslots the timeslots
+	 * @param buildingList the building list
+	 * @return true, if successful
+	 */
 	public static boolean validateInput(ArrayList<Timeslot> timeslots, ArrayList<String> buildingList) { //Extract Method
-		
-		Set<String> checkCRN = new HashSet();
-		
+
+		Set<String> checkCRN = new HashSet<String>();
+
 		buildingList.add("AC1");
 		buildingList.add("AC2");
 		buildingList.add("AC3");
@@ -279,7 +305,7 @@ public class Utilities {
 		buildingList.add("FYW");
 		buildingList.add("SPORTS");
 		buildingList.add("JSC");
-		
+
 		boolean existLecture = false;
 		boolean existTutorial = false;
 		//for (Timeslot i : timeslots) {
@@ -290,14 +316,14 @@ public class Utilities {
 				System.out.println("The input timetable is invalid - duplicate CRN (CRN #" + timeslots.get(i).getCrn() + ")");
 				return false;
 			}
-			
+
 			// check session first character
 			if (timeslots.get(i).getSession().charAt(0) != 'C' && timeslots.get(i).getSession().charAt(0) != 'T' && timeslots.get(i).getSession().charAt(0) != 'L')
 			{
 				System.out.println("The input timetable is invalid - session (CRN #" + timeslots.get(i).getCrn() + ": " + timeslots.get(i).getSession() + ")");
 				return false;
 			}
-			
+
 			// check sufficient lecture/tutorials
 			// ******************************************************
 			if (i < timeslots.size() - 1)
@@ -317,41 +343,41 @@ public class Utilities {
 						System.out.println("The input timetable is invalid - insufficient lecture/tutorial (Course: " + timeslots.get(i).getCode() + ")");
 						return false;
 					}
-					
+
 					existLecture = false;
 					existTutorial = false;
 				}
 			}
 			// ******************************************************
-			
+
 			// check building
 			if (!buildingList.contains(timeslots.get(i).getBuilding()))
 			{
 				System.out.println("The input timetable is invalid - building code (CRN #" + timeslots.get(i).getCrn() + ": " + timeslots.get(i).getBuilding() + ")");
 				return false;
 			}
-			
+
 			// check course start time
 			if (timeslots.get(i).getStartTime() < 8 || timeslots.get(i).getStartTime() > 21)
 			{
 				System.out.println("The input timetable is invalid - course start time (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getStartTime() + ")");
 				return false;
 			}
-			
+
 			// check course finish time
 			if (timeslots.get(i).getFinishTime() < 8 || timeslots.get(i).getFinishTime() > 22)
 			{
 				System.out.println("The input timetable is invalid - course finish time (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getFinishTime() + ")");
 				return false;
 			}
-			
+
 			// check course time range
 			if (timeslots.get(i).getStartTime() > timeslots.get(i).getFinishTime())
 			{
 				System.out.println("The input timetable is invalid - course time range (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getStartTime() + " > " + (int)timeslots.get(i).getFinishTime() + ")");
 				return false;
 			}
-			
+
 			// check day
 			if (timeslots.get(i).getDay() < 0 || timeslots.get(i).getDay() > 6)
 			{
@@ -360,7 +386,6 @@ public class Utilities {
 			}
 		}
 
-		//Extract MethodSSSS
 
 		return true;
 	}
