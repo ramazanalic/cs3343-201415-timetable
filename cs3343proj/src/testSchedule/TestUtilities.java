@@ -561,5 +561,4 @@ public class TestUtilities extends TestCase {
 		assertEquals(prev + expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
 
-
 }

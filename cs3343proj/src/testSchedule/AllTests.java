@@ -3,9 +3,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-//import testSchedule.TestSchedule;
-//import testSchedule.TestTimeslot;
-
 /**
  * The Class AllTests.
  */
