@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Collections;
 
 public class IO {
 	private static String inputString;
@@ -34,7 +36,8 @@ public class IO {
 				double ft =
 						Math.round(Double.parseDouble(courseData[counter][6].substring(0, 2)) +
 								Double.parseDouble(courseData[counter][6].substring(3, 5)) / 60);
-				int dia = 0;
+				//int dia = 0;
+				int dia = -1;
 				for (Weekday dayi : Weekday.values()) {
 					if (dayi.toString().equals(courseData[counter][7])) { 
 						dia = dayi.day;
@@ -59,7 +62,7 @@ public class IO {
 
 		catch (IOException e)
 		{
-			e.printStackTrace(); //1% statement coverage
+			e.printStackTrace();
 		}
 
 	}
@@ -187,6 +190,132 @@ public class IO {
 		return "-1";
 	}
 */
+	
+	public static HashMap<Integer,ArrayList<Double>> readTimeConstraints(String filename)
+	{
+		HashMap<Integer, ArrayList<Double>> dayTimeMap = new HashMap <Integer, ArrayList<Double>>();
+		
+		int[][] tempTime = new int[7][16];
+		
+		
+		
+		for (int i = 0; i < 7; i++)
+			for (int j = 0; j < 16; j++)
+				tempTime[i][j] = -1;
+		
+		String currentLine;
+
+		String[] constraint = new String[4];
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(filename)))
+		{
+			while ((currentLine = br.readLine()) != null)
+			{	
+				String[] temp = currentLine.split("\t");
+				
+				if (currentLine.startsWith("#"))
+					continue;
+				
+				for (int i = 0; i < temp.length; i++)
+					constraint[i] = temp[i];
+				
+				//System.out.println("keyword:" + constraint[0]);
+				//System.out.println("value1:" + constraint[1]);
+				//System.out.println("value2:" + constraint[2]);
+				//System.out.println("value3:" + constraint[3]);
+
+				if (constraint[0].equals("Before"))
+				{
+					if (constraint[1].equals("Everyday"))
+						for (int i = 0; i < 7; i++)
+							Utilities.beforeTime(i, Integer.parseInt(constraint[2]), tempTime);
+					
+					else
+					{
+						for (Weekday dayi : Weekday.values())
+						{
+							if (dayi.toString().equals(constraint[1]))
+							{ 
+								Utilities.beforeTime(dayi.getDay(), Integer.parseInt(constraint[2]), tempTime);
+							}
+						}
+					}
+				}
+				else if (constraint[0].equals("After"))
+				{
+					if (constraint[1].equals("Everyday"))
+						for (int i = 0; i < 7; i++)
+							Utilities.afterTime(i, Integer.parseInt(constraint[2]), tempTime);
+					
+					else
+					{
+						for (Weekday dayi : Weekday.values())
+						{
+							if (dayi.toString().equals(constraint[1]))
+							{ 
+								Utilities.afterTime(dayi.getDay(), Integer.parseInt(constraint[2]), tempTime);
+							}
+						}
+					}
+				}
+				else if (constraint[0].equals("Between"))
+				{
+					if (constraint[1].equals("Everyday"))
+						for (int i = 0; i < 7; i++)
+							Utilities.betweenTime(i, Integer.parseInt(constraint[2]), Integer.parseInt(constraint[3]), tempTime);
+					
+					else
+					{
+						for (Weekday dayi : Weekday.values())
+						{
+							if (dayi.toString().equals(constraint[1]))
+							{ 
+								Utilities.betweenTime(dayi.getDay(), Integer.parseInt(constraint[2]), Integer.parseInt(constraint[3]), tempTime);
+							}
+						}
+					}
+				}
+				else if (constraint[0].equals("Dayoff"))
+				{
+					for (Weekday dayi : Weekday.values())
+					{
+						if (dayi.toString().equals(constraint[1]))
+						{ 
+							Utilities.betweenTime(dayi.getDay(), 8, 23, tempTime);
+						}
+					}
+				}
+				else 
+				{
+					throw new IOException();
+				}
+				
+			}
+			
+			for (int i = 0; i < 7; i++)
+			{
+				ArrayList<Double> tempTimeList = new ArrayList<Double>();
+				
+				for (int j = 0; j < 16; j++)
+				{
+					if (tempTime[i][j] != -1)
+						tempTimeList.add((double)tempTime[i][j]);
+				}
+				
+				Collections.sort(tempTimeList);
+				
+				dayTimeMap.put(i, tempTimeList);
+			}
+		}
+		
+		catch (IOException e)
+		{
+			System.out.println("You should input valid data in \"TimeConstraints.txt\".");
+		}
+
+		return dayTimeMap;
+	}
+	
 	public static ArrayList<String> readRequiredConstraints(String filename)
 	{
 		ArrayList<String> ret = new ArrayList<String>();
@@ -247,7 +376,7 @@ public class IO {
 		}
 		catch (NumberFormatException e)
 		{
-			return 0;
+			System.out.println("You should input a valid number to indicate the maximum time between 2 sessions in \"MaxTimeBetween2Sessions.txt\".");
 		}
 
 		return -1;

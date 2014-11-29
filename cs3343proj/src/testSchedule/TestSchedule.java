@@ -238,13 +238,13 @@ public class TestSchedule extends TestCase{
 
 		Timeslot f = new Timeslot("40006","CS3301","L01", "AC1", "LT-2", 15, 16, Weekday.Wed.getDay());
 		timetable.add(f);
-		
+
 		rc = new TimeGapConstraint(timetable, 3);
 		assertEquals(rc.isFulfilled(), false);
-		
+
 		Timeslot g = new Timeslot("40007","CS3483","C01", "AC1", "LT-2", 11, 13, Weekday.Wed.getDay());
 		timetable.add(g);
-		
+
 		rc = new TimeGapConstraint(timetable, 3);
 		assertEquals(rc.isFulfilled(), false);
 	}
@@ -765,42 +765,43 @@ public class TestSchedule extends TestCase{
 
 		IO.printSchedule(timetable);
 
-		String expected = "                                       |-------------------------|                                       \n" + 
-				"                                       |   Visualized timetable  |                                       \n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|0800-0850   |            |            |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|0900-0950   |            |            |CS3301-LA1  |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1000-1050   |            |CS3201-CA1  |CS3301-LA1  |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1100-1150   |            |CS3201-CA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1200-1250   |            |            |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1300-1350   |            |CS2332-LA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1400-1450   |CS3332-C01  |CS2332-LA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1500-1550   |CS3332-C01  |CS2332-LA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1600-1650   |            |            |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1700-1750   |            |            |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1800-1850   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|1900-1950   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|2000-2050   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|2100-2150   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
-				"|2200-2250   |            |            |            |            |            |            |            |\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|" + 
-				"";
+		String expected =
+				"                                       |-------------------------|                                       \n" + 
+						"                                       |   Visualized timetable  |                                       \n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|0800-0850   |            |            |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|0900-0950   |            |            |CS3301-LA1  |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1000-1050   |            |CS3201-CA1  |CS3301-LA1  |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1100-1150   |            |CS3201-CA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1200-1250   |            |            |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1300-1350   |            |CS2332-LA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1400-1450   |CS3332-C01  |CS2332-LA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1500-1550   |CS3332-C01  |CS2332-LA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1600-1650   |            |            |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1700-1750   |            |            |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1800-1850   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|1900-1950   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|2000-2050   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|2100-2150   |            |CS3443-CA1  |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\n" + 
+						"|2200-2250   |            |            |            |            |            |            |            |\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|" + 
+						"";
 
 		assertEquals(expected.replaceAll("\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 
@@ -812,8 +813,7 @@ public class TestSchedule extends TestCase{
 	@Test
 	public void testMain() {
 
-		String[] args = {"CS3343_data2.txt"};
-
+		String[] args = {"CS3343_data3.txt"};
 		/*		ByteArrayInputStream in = new ByteArrayInputStream("60002".getBytes());
 		System.setIn(in);
 		in = new ByteArrayInputStream("50005".getBytes());
@@ -824,50 +824,75 @@ public class TestSchedule extends TestCase{
 		System.setIn(in);
 		in = new ByteArrayInputStream("-1".getBytes());
 		System.setIn(in);*/
-		/*
+
 		Schedule.main(args);
 		//System.setIn(System.in);
 
-		String expected = "There are 4248 possible combinations.\r\n" + 
-				"                                       |-------------------------|                                       \r\n" + 
-				"                                       |   Visualized timetable  |                                       \r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|0800-0850   |            |            |            |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|0900-0950   |            |            |            |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1000-1050   |            |CS2010-C0A  |CS2201-C0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1100-1150   |CS3332-T0A  |CS2010-C0A  |CS2201-C0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1200-1250   |            |            |CS2205-T01  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1300-1350   |CS3332-C0A  |CS2010-T0A  |CS2201-T0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1400-1450   |CS3332-C0A  |            |CS2205-C0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1500-1550   |CS3332-C0A  |            |            |CS4321-C01  |CS2332-L0A  |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1600-1650   |CS2112-C0A  |            |            |CS4321-C01  |CS2332-L0A  |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1700-1750   |CS2112-C0A  |            |            |            |CS2332-C0A  |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1800-1850   |CS2112-T0A  |            |CS4321-T0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|1900-1950   |            |            |CS4321-T0A  |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|2000-2050   |            |            |            |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|2100-2150   |            |            |            |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"|2200-2250   |            |            |            |            |            |            |            |\r\n" + 
-				"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
-				"";
+		String expected = 
+				"There are 1 possible combinations.\r\n" + 
+						"There are 1 timetables available.\r\n" + 
+						"Timetable 1:\r\n" + 
+						"                                       |-------------------------|                                       \r\n" + 
+						"                                       |   Visualized timetable  |                                       \r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|Time        |Monday      |Tuesday     |Wednesday   |Thursday    |Friday      |Saturday    |Sunday      |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|0800-0850   |            |            |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|0900-0950   |            |            |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1000-1050   |            |CS2010-C0A  |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1100-1150   |CS3332-T0A  |CS2010-C0A  |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1200-1250   |            |            |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1300-1350   |CS3332-C0A  |CS2010-T0A  |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1400-1450   |CS3332-C0A  |            |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1500-1550   |CS3332-C0A  |            |            |            |CS2332-L0A  |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1600-1650   |            |            |            |            |CS2332-L0A  |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1700-1750   |            |            |            |            |CS2332-C0A  |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1800-1850   |            |            |CS4321-T0A  |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|1900-1950   |            |            |CS4321-T0A  |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|2000-2050   |            |            |CS4321-C0A  |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|2100-2150   |            |            |CS4321-C0A  |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"|2200-2250   |            |            |            |            |            |            |            |\r\n" + 
+						"|------------|------------|------------|------------|------------|------------|------------|------------|\r\n" + 
+						"List of CRNs: [10003, 10001, 20006, 20008, 30013, 30012, 60002, 50005]";
+
 		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
-		 */
-		assertEquals(true,true);
+
+	}
+
+	// Test case: Test main
+	@Test
+	public void testMainBoundByConstraint() {
+
+		String[] args = {"CS3343_data-NoCombinationBecauseOfConstraints.txt"};
+		/*		ByteArrayInputStream in = new ByteArrayInputStream("60002".getBytes());
+			System.setIn(in);
+			in = new ByteArrayInputStream("50005".getBytes());
+			System.setIn(in);
+			in = new ByteArrayInputStream("-1".getBytes());
+			System.setIn(in);
+			in = new ByteArrayInputStream("AC3".getBytes());
+			System.setIn(in);
+			in = new ByteArrayInputStream("-1".getBytes());
+			System.setIn(in);*/
+
+		Schedule.main(args);
+
+		String expected = "There are 1 possible combinations.\r\nThere is no possible combination i.e. You should change some of the constraints.";
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
 
 	// Test case 26: Test printSchedule(No possible combination)
@@ -884,7 +909,7 @@ public class TestSchedule extends TestCase{
 	public void testMainNoLectures() {
 		String[] args = {"CS3343_data-NoLectures.txt"};
 		Schedule.main(args);
-		String expected = "There is no lecture.";
+		String expected = "The input timetable is invalid - insufficient lecture/tutorial (Course: CS3332)";
 
 		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
@@ -895,7 +920,7 @@ public class TestSchedule extends TestCase{
 		String[] args = {"CS3343_data-NoTutorials.txt"};
 		Schedule.main(args);
 
-		String expected = "There is no tutorial.";
+		String expected = "The input timetable is invalid - insufficient lecture/tutorial (Course: CS3332)";
 		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
 
@@ -982,6 +1007,15 @@ public class TestSchedule extends TestCase{
 		double gapTime = IO.readTimeGapConstraint("MaxTimeBetween2Sessions.txt");
 		assertEquals(2.0, gapTime);
 	}
+	
+	// Test case 35: Test readTimeGapConstraint
+	@Test
+	public void testReadTimeGapConstraintError() {
+
+		double gapTime = IO.readTimeGapConstraint("MaxTimeBetween2Sessions-Error.txt");
+		assertEquals(-1.0, gapTime);
+		assertEquals("You should input a valid number to indicate the maximum time between 2 sessions in \"MaxTimeBetween2Sessions.txt\".", outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
 
 	// Test case 36: Test readTimeGapConstraint
 	@Test
@@ -1013,12 +1047,12 @@ public class TestSchedule extends TestCase{
 		ArrayList<String> crns = IO.readRequiredConstraints("Empty.txt");
 		assertEquals(new ArrayList<String>(), crns);
 	}
-	
+
 	// Test case 39: Test testBuildingConstraint
 	@Test
 	public void testRequiredConstraintsEmpty() {
 		ArrayList<String> crns = IO.readRequiredConstraints("Empty.txt");
-		
+
 		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
 		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
 		Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11, Weekday.Wed.getDay());
@@ -1035,12 +1069,12 @@ public class TestSchedule extends TestCase{
 		RequiredConstraint rc = new RequiredConstraint(timetable, crns);
 		assertEquals(rc.isFulfilled(), true);
 	}
-	
+
 	// Test case 39: Test testBuildingConstraint
 	@Test
 	public void testBuildingConstraintsEmpty() {
 		ArrayList<String> bldgs = IO.readBuildingConstraints("Empty.txt");
-		
+
 		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
 		Timeslot b = new Timeslot("40002","CS2332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
 		Timeslot c = new Timeslot("40003","CS3301","LA1", "AC1", "LT-3", 9, 11, Weekday.Wed.getDay());
@@ -1057,7 +1091,7 @@ public class TestSchedule extends TestCase{
 		BuildingConstraint bc = new BuildingConstraint(timetable, bldgs);
 		assertEquals(bc.isFulfilled(), true);
 	}
-	
+
 	// Test case 37: Test readTimeGapConstraint
 	@Test
 	public void testTimeGapConstraintEmpty() {
@@ -1080,5 +1114,294 @@ public class TestSchedule extends TestCase{
 		TimeGapConstraint tc = new TimeGapConstraint(timetable, gapTime);
 		assertEquals(tc.isFulfilled(), true);
 	}
-	
+
+	// Test case 38: Test readTimeConstraints
+	@Test
+	public void testReadTimeConstraintsDayOff() {
+
+		HashMap<Integer, ArrayList<Double>> timeExcluded = IO.readTimeConstraints("TimeConstraints-Dayoff.txt");
+
+		ArrayList<Double> expected = new ArrayList<Double>();
+		expected.add(8.0);
+		expected.add(9.0);
+		expected.add(10.0);
+		expected.add(11.0);
+		expected.add(12.0);
+		expected.add(13.0);
+		expected.add(14.0);
+		expected.add(15.0);
+		expected.add(16.0);
+		expected.add(17.0);
+		expected.add(18.0);
+		expected.add(19.0);
+		expected.add(20.0);
+		expected.add(21.0);
+		expected.add(22.0);
+
+		assertEquals(timeExcluded.get(4), expected);
+	}
+
+	// Test case 39: Test readTimeConstraints
+	@Test
+	public void testReadTimeConstraintsBefore() {
+
+		HashMap<Integer, ArrayList<Double>> timeExcluded = IO.readTimeConstraints("TimeConstraints-Before.txt");
+		HashMap<Integer, ArrayList<Double>> expected = new HashMap<Integer, ArrayList<Double>>();
+		ArrayList<Double> temp = new ArrayList<Double>();
+		temp.add(8.0);
+		temp.add(9.0);
+		expected.put(0, temp);
+		expected.put(2, temp);
+		expected.put(3, temp);
+		expected.put(4, temp);
+		expected.put(5, temp);
+		expected.put(6, temp);
+		ArrayList<Double> temp2 = new ArrayList<Double>();
+		temp2.add(8.0);
+		temp2.add(9.0);
+		temp2.add(10.0);
+		temp2.add(11.0);
+		expected.put(1, temp2);
+
+		assertEquals(timeExcluded, expected);
+	}
+
+	// Test case 40: Test readTimeConstraints
+	@Test
+	public void testReadTimeConstraintsAfter() {
+
+		HashMap<Integer, ArrayList<Double>> timeExcluded = IO.readTimeConstraints("TimeConstraints-After.txt");
+		HashMap<Integer, ArrayList<Double>> expected = new HashMap<Integer, ArrayList<Double>>();
+		ArrayList<Double> temp = new ArrayList<Double>();
+		temp.add(18.0);
+		temp.add(19.0);
+		temp.add(20.0);
+		temp.add(21.0);
+		temp.add(22.0);
+		expected.put(0, temp);
+		expected.put(1, temp);
+		expected.put(2, temp);
+		expected.put(3, temp);
+		expected.put(4, temp);
+		expected.put(6, temp);
+		ArrayList<Double> temp2 = new ArrayList<Double>();
+		temp2.add(16.0);
+		temp2.add(17.0);
+		temp2.add(18.0);
+		temp2.add(19.0);
+		temp2.add(20.0);
+		temp2.add(21.0);
+		temp2.add(22.0);
+		expected.put(5, temp2);
+
+		assertEquals(timeExcluded, expected);
+	}
+
+	// Test case 41: Test readTimeConstraints
+	@Test
+	public void testReadTimeConstraintsBetween() {
+
+		HashMap<Integer, ArrayList<Double>> timeExcluded = IO.readTimeConstraints("TimeConstraints-Between.txt");
+		HashMap<Integer, ArrayList<Double>> expected = new HashMap<Integer, ArrayList<Double>>();
+		ArrayList<Double> temp = new ArrayList<Double>();
+		temp.add(12.0);
+		expected.put(0, temp);
+		expected.put(1, temp);
+		expected.put(2, temp);
+		expected.put(3, temp);
+		expected.put(5, temp);
+		expected.put(6, temp);
+		ArrayList<Double> temp2 = new ArrayList<Double>();
+		temp2.add(12.0);
+		temp2.add(15.0);
+		expected.put(4, temp2);
+
+		assertEquals(timeExcluded, expected);
+	}
+
+	// Test case 41: Test readTimeConstraints
+	@Test
+	public void testReadTimeConstraintsError() {
+
+		HashMap<Integer, ArrayList<Double>> timeExcluded = IO.readTimeConstraints("TimeConstraints-Error.txt");
+
+		String expected = "You should input valid data in \"TimeConstraints.txt\".";
+
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+
+	// Test case 42: Test validateInput
+	@Test
+	public void testValidateInputDuplicateCrn() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40001","CS3332","LA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - duplicate CRN (CRN #40001)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+
+	}
+	// Test case 43: Test validateInput
+	@Test
+	public void testValidateInputSession() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","KA1", "AC2", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - session (CRN #40002: KA1)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+
+	}
+
+	// Test case 43: Test validateInput
+	@Test
+	public void testValidateInputBuilding() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 14, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","LA1", "AC4", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - building code (CRN #40002: AC4)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+
+	}
+
+	// Test case 44: Test validateInput
+	@Test
+	public void testValidateInputCourseStartTime() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 7, 16, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - course start time (CRN #40001: 7)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+
+		timeslots = new ArrayList<Timeslot>();
+
+		a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 23, 24, Weekday.Mon.getDay());
+		b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		result = Utilities.validateInput(timeslots, buildingList);
+
+		expected = "The input timetable is invalid - course start time (CRN #40001: 23)";
+
+	}
+
+	// Test case 45: Test validateInput
+	@Test
+	public void testValidateInputCourseFinishTime() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 10, 27, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - course finish time (CRN #40001: 27)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+
+		timeslots = new ArrayList<Timeslot>();
+
+		a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 9, 23, Weekday.Mon.getDay());
+		b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		result = Utilities.validateInput(timeslots, buildingList);
+
+		expected = "The input timetable is invalid - course finish time (CRN #40001: 23)";
+
+	}
+
+	// Test case 46: Test validateInput
+	@Test
+	public void testValidateInputCourseTimeRange() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 10, 8, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, Weekday.Tue.getDay());
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - course time range (CRN #40001: 10 > 8)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+
+	// Test case 47: Test validateInput
+	@Test
+	public void testValidateInputDay() {
+
+		timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
+
+		Timeslot a = new Timeslot("40001","CS3332","C01", "AC1", "LT-1", 10, 13, Weekday.Mon.getDay());
+		Timeslot b = new Timeslot("40002","CS3332","LA1", "AC3", "5503", 13, 16, 10);
+
+		timeslots.add(a);
+		timeslots.add(b);
+
+		boolean result = Utilities.validateInput(timeslots, buildingList);
+
+		String expected = "The input timetable is invalid - day (CRN #40002)";
+
+		assertEquals(result, false);
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
 }

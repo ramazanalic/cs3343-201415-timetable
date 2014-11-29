@@ -1,6 +1,8 @@
 package schedule;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Utilities {
 	/** The first session's start time. */
@@ -145,6 +147,88 @@ public class Utilities {
 	 * @param t the given time t
 	 * @return the array list of time NOT before time t
 	 */
+	public static void beforeTime(int day, int t, int[][] tempTime) {
+		int count = 0;
+		
+		while (tempTime[day][count] != -1)
+			count++;
+		
+		for (double k = firstTime; k < t; k++)
+		{
+			boolean exist = false;
+			for (int i = 0; i < 16; i++)
+			{
+				if (k == tempTime[day][i])
+					exist = true;
+			}
+			
+			if (exist != true)
+			{
+				tempTime[day][count] = (int) k;
+				count++;
+			}
+		}
+	}
+
+	/**
+	 * To generate an array list of time after a given time t.
+	 *
+	 * @param t the given time t
+	 * @return the array list of time NOT after time t
+	 */
+	public static void afterTime(int day, int t, int[][] tempTime) {
+		int count = 0;
+		
+		while (tempTime[day][count] != -1)
+			count++;
+		
+		for (double k = t; k < lastTime; k++)
+		{			
+			boolean exist = false;
+			for (int i = 0; i < 16; i++)
+			{
+				if (k == tempTime[day][i])
+					exist = true;
+			}
+			
+			if (exist != true)
+			{
+				tempTime[day][count] = (int) k;
+				count++;
+			}
+		}
+	}
+	
+	
+	public static void betweenTime(int day, int t1, int t2, int[][] tempTime) {
+		int count = 0;
+		
+		while (tempTime[day][count] != -1)
+			count++;
+		
+		for (int k = t1; k < t2; k++)
+		{			
+			boolean exist = false;
+			for (int i = 0; i < 16; i++)
+			{
+				if (k == tempTime[day][i])
+					exist = true;
+			}
+			
+			if (exist != true)
+			{
+				tempTime[day][count] = (int) k;
+				count++;
+			}
+		}
+	}
+	
+	/**
+	 * To generate an array list of time before a given time t.
+	 *
+	 * @param t the given time t
+	 * @return the array list of time NOT before time t
+	 */
 	public static ArrayList<Double> beforeTime(double t) {
 		ArrayList<Double> listOfExcludedTime = new ArrayList<Double>();
 		for (double i = firstTime; i < t; i++) {
@@ -181,4 +265,103 @@ public class Utilities {
 		return listOfExcludedTime;
 	}
 
+	public static boolean validateInput(ArrayList<Timeslot> timeslots, ArrayList<String> buildingList) { //Extract Method
+		
+		Set<String> checkCRN = new HashSet();
+		
+		buildingList.add("AC1");
+		buildingList.add("AC2");
+		buildingList.add("AC3");
+		buildingList.add("MMW");
+		buildingList.add("AMEN");
+		buildingList.add("CMC");
+		buildingList.add("CYC");
+		buildingList.add("FYW");
+		buildingList.add("SPORTS");
+		buildingList.add("JSC");
+		
+		boolean existLecture = false;
+		boolean existTutorial = false;
+		//for (Timeslot i : timeslots) {
+		for (int i = 0; i < timeslots.size() ; i++) {
+			// check CRN
+			if (!checkCRN.add(timeslots.get(i).getCrn()))
+			{
+				System.out.println("The input timetable is invalid - duplicate CRN (CRN #" + timeslots.get(i).getCrn() + ")");
+				return false;
+			}
+			
+			// check session first character
+			if (timeslots.get(i).getSession().charAt(0) != 'C' && timeslots.get(i).getSession().charAt(0) != 'T' && timeslots.get(i).getSession().charAt(0) != 'L')
+			{
+				System.out.println("The input timetable is invalid - session (CRN #" + timeslots.get(i).getCrn() + ": " + timeslots.get(i).getSession() + ")");
+				return false;
+			}
+			
+			// check sufficient lecture/tutorials
+			// ******************************************************
+			if (i < timeslots.size() - 1)
+			{
+				if (timeslots.get(i).getCode().equals(timeslots.get(i+1).getCode()) && (!existLecture || !existTutorial))
+				{
+					if (timeslots.get(i).getSession().charAt(0) == 'C' || timeslots.get(i+1).getSession().charAt(0) == 'C')
+						existLecture = true;
+					if (timeslots.get(i).getSession().charAt(0) == 'T' || timeslots.get(i+1).getSession().charAt(0) == 'T' || timeslots.get(i).getSession().charAt(0) == 'L' || timeslots.get(i+1).getSession().charAt(0) == 'L')
+						existTutorial = true;
+				}
+
+				if (!timeslots.get(i).getCode().equals(timeslots.get(i+1).getCode()))
+				{
+					if (!existLecture || !existTutorial)
+					{
+						System.out.println("The input timetable is invalid - insufficient lecture/tutorial (Course: " + timeslots.get(i).getCode() + ")");
+						return false;
+					}
+					
+					existLecture = false;
+					existTutorial = false;
+				}
+			}
+			// ******************************************************
+			
+			// check building
+			if (!buildingList.contains(timeslots.get(i).getBuilding()))
+			{
+				System.out.println("The input timetable is invalid - building code (CRN #" + timeslots.get(i).getCrn() + ": " + timeslots.get(i).getBuilding() + ")");
+				return false;
+			}
+			
+			// check course start time
+			if (timeslots.get(i).getStartTime() < 8 || timeslots.get(i).getStartTime() > 21)
+			{
+				System.out.println("The input timetable is invalid - course start time (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getStartTime() + ")");
+				return false;
+			}
+			
+			// check course finish time
+			if (timeslots.get(i).getFinishTime() < 8 || timeslots.get(i).getFinishTime() > 22)
+			{
+				System.out.println("The input timetable is invalid - course finish time (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getFinishTime() + ")");
+				return false;
+			}
+			
+			// check course time range
+			if (timeslots.get(i).getStartTime() > timeslots.get(i).getFinishTime())
+			{
+				System.out.println("The input timetable is invalid - course time range (CRN #" + timeslots.get(i).getCrn() + ": " + (int)timeslots.get(i).getStartTime() + " > " + (int)timeslots.get(i).getFinishTime() + ")");
+				return false;
+			}
+			
+			// check day
+			if (timeslots.get(i).getDay() < 0 || timeslots.get(i).getDay() > 6)
+			{
+				System.out.println("The input timetable is invalid - day (CRN #" + timeslots.get(i).getCrn() + ")");
+				return false;
+			}
+		}
+
+		//Extract MethodSSSS
+
+		return true;
+	}
 }

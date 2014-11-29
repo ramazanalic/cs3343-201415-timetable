@@ -18,6 +18,7 @@ public class Schedule {
 	public static void main(String[] args) {
 
 		ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
+		ArrayList<String> buildingList = new ArrayList<String>();
 		
 		//String inputFile = "CS3343_data2.txt"; 
 
@@ -34,6 +35,8 @@ public class Schedule {
 		
 		// validate input
 		//validateInput(ArrayList<Timeslot> timeslots)
+		if (!Utilities.validateInput(timeslots, buildingList))
+			return;
 		
 		// input and validate constraints
 		//parseInputFile(inputFile, timeConstraint, timeGapConstraint, requiredConstraint, buildingConstraint);
@@ -57,18 +60,18 @@ public class Schedule {
 			HashMap<String,ArrayList<Timeslot>> slot = new HashMap<String,ArrayList<Timeslot>>();
 			if (allLectures.size()>0)
 				slot.put("Lecture", allLectures);
-			else
+			/*else
 			{
 				System.out.println("There is no lecture.");
 				return;
-			}
+			}*/
 			if (allTutorials.size()>0)
 				slot.put("Tutorial", allTutorials);
-			else
+			/*else
 			{
 				System.out.println("There is no tutorial.");
 				return;
-			}
+			}*/
 			uniqueCourseTimeslots.put(i, slot);
 
 		}
@@ -134,6 +137,8 @@ public class Schedule {
 		ArrayList<String> listOfCrns = IO.readRequiredConstraints("TheseCRNsMustBeIncluded.txt");
 		ArrayList<String> listOfBldgs = IO.readBuildingConstraints("NoClassInTheseBuildings.txt");
 		double timeDifference = IO.readTimeGapConstraint("MaxTimeBetween2Sessions.txt");
+		
+		HashMap<Integer,ArrayList<Double>> listOfTime = IO.readTimeConstraints("TimeConstraints.txt");
 		//listOfCrns.add("60002");
 		//listOfCrns.add("50005");
 
@@ -144,8 +149,10 @@ public class Schedule {
 			BuildingConstraint bc = new BuildingConstraint(l, listOfBldgs);
 			TimeGapConstraint tc = new TimeGapConstraint(l, timeDifference);
 			//TimeGapConstraint
+			TimeConstraint timeConstraint = new TimeConstraint(l, listOfTime);
 			
-			if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled()) 
+			//if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled())
+			if (rc.isFulfilled() && bc.isFulfilled() && tc.isFulfilled() && timeConstraint.isFulfilled())
 			{
 				listOfTimetables.add(l);
 				

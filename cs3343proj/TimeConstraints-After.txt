@@ -1,0 +1,11 @@
+#Before	Everyday	10
+#Before	Mon	12
+#Before	Tue	10
+#
+After	Everyday	18
+After	Fri	16
+#
+#Between	Thu	15	16
+#
+#Dayoff	Thu
+#
