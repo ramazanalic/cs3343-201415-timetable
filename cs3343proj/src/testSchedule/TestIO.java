@@ -378,4 +378,30 @@ public class TestIO extends TestCase {
 		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
 	}
 
+	/**
+	 * Test read timeslots with valid file and valid data.
+	 */
+	@Test
+	public void testReadTimeSlots() {
+
+		IO.readTimeslots(timeslots, "CS3343_data-simple.txt");
+
+		assertEquals(timeslots.get(0).getCrn(), "30012");
+		assertEquals(timeslots.get(1).getCrn(), "30013");
+
+	}
+
+	/**
+	 * Test readtimeslots with invalid file name.
+	 */
+	@Test
+	public void testReadTimeSlotsFail() {
+
+		IO.readTimeslots(timeslots, "NonExistingFile.txt");
+
+		String expected = "The datas file doest not exist.";
+
+		assertEquals(expected.replaceAll("\r\n", ""), outContent.toString().replaceAll("\r\n", "").replaceAll("\n", ""));
+	}
+
 }

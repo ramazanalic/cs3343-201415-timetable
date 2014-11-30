@@ -1,0 +1,18 @@
+File name: BT_TimetableSchedulingSystem_RefactorReport_v0
+
+###################################################
+###	Version:		v0.1.0		###
+###	Creator:		KWAN Tsz Ho	###
+###	Last Edited:		15 Nov 2014	###
+###	Items Updated:		(Created)	###
+###################################################
+
+
+###################################################
+###	Version:		v0.2.0		###
+###	Creator:		Kwan Tsz Ho	###
+###	Last Edited:		30 Nov 2014	###
+###	Items Updated:		Refactor #01-04	###
+###				Content Page	###
+###################################################
+

@@ -68,7 +68,7 @@ public class IO {
 
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			System.out.println("The datas file doest not exist.");
 		}
 
 	}
