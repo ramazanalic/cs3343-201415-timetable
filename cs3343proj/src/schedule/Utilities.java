@@ -19,7 +19,7 @@ public class Utilities {
 	/**
 	 * All courses.
 	 *
-	 * @param timeslots the timeslots
+	 * @param timeslots the input timeslots
 	 * @return the array list of all courses
 	 */
 	public static ArrayList<String> allCourses(ArrayList<Timeslot> timeslots) {
