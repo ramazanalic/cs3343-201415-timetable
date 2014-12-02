@@ -1,4 +1,4 @@
-File name: BT_TimetableSchedulingSystem_RefactorReport_v0
+File name: BT_TimetableSchedulingSystem_RefactorReport_v020.docx
 
 ###################################################
 ###	Version:		v0.1.0		###

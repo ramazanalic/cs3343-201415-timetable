@@ -1,0 +1,23 @@
+File name: BT_TimetableSchedulingSystem_ProjectPlan_v011.docx
+
+###################################################
+###	Version:		v0.0.1		###
+###	Creator:		Yau Yet Chi	###
+###	Last Edited:		15 Nov 2014	###
+###	Items Updated:		(Created)	###
+###################################################
+
+
+###################################################
+###	Version:		v0.1.0		###
+###	Creator:		Yau Yet Chi	###
+###	Last Edited:		02 Dec 2014	###
+###	Items Updated:		All parts	###
+###################################################
+
+###################################################
+###	Version:		v0.1.1		###
+###	Creator:		Kwan Tsz Ho	###
+###	Last Edited:		02 Dec 2014	###
+###	Items Updated:		Deliverables	###
+###################################################

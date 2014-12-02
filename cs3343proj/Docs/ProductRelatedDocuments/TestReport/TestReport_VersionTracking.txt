@@ -1,4 +1,4 @@
-File name: BT_TimetableSchedulingSystem_TestReport_v0
+File name: BT_TimetableSchedulingSystem_TestReport_v020.docx
 
 ###########################################################
 ###	Version:		v0.1.0			###

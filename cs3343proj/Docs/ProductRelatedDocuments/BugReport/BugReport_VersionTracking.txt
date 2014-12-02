@@ -1,4 +1,4 @@
-File name: BT_TimetableSchedulingSystem_BugReport_v0
+File name: BT_TimetableSchedulingSystem_BugReport_v060.docx
 
 ###################################################
 ###	Version:		v0.1.0		###
@@ -54,6 +54,14 @@ File name: BT_TimetableSchedulingSystem_BugReport_v0
 ###	Creator:		Kwan Tsz Ho	###
 ###	Last Edited:		25 Nov 2014	###
 ###	Items Updated:		Bug 00004	###
+###				Content Page	###
+###################################################
+
+###################################################
+###	Version:		v0.6.0		###
+###	Creator:		Yau Yet Chi	###
+###	Last Edited:		29 Nov 2014	###
+###	Items Updated:		Bug 00005	###
 ###				Content Page	###
 ###################################################
 
