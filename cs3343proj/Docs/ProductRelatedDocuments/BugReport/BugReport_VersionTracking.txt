@@ -57,3 +57,10 @@ File name: BT_TimetableSchedulingSystem_BugReport_v0
 ###				Content Page	###
 ###################################################
 
+###################################################
+###	Version:		v0.6.0		###
+###	Creator:		Yau Yet Chi	###
+###	Last Edited:		29 Nov 2014	###
+###	Items Updated:		Bug 00005	###
+###				Content Page	###
+###################################################
