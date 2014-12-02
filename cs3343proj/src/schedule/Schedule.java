@@ -13,7 +13,7 @@ public class Schedule {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
+	 * @param args the arguments to run the program
 	 */
 	public static void main(String[] args) {
 
