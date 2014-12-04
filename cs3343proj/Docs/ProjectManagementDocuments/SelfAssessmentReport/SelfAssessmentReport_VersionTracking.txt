@@ -1,0 +1,9 @@
+File name: BT_TimetableSchedulingSystem_SelfAssessmentReport_v010.docx
+
+###################################################
+###	Version:		v0.1.0		###
+###	Creator:		Kwan Tsz Ho	###
+###	Last Edited:		02 Dec 2014	###
+###	Items Updated:		All parts	###
+###################################################
+

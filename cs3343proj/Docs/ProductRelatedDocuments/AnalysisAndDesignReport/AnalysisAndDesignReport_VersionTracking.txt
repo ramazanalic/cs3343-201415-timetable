@@ -1,0 +1,8 @@
+File name: BT_TimetableSchedulingSystem_AnalysisAndDesignReport_v010.docx
+
+###################################################
+###	Version:		v0.1.0		###
+###	Creator:		KWAN Tsz Ho	###
+###	Last Edited:		3 Dec 2014	###
+###	Items Updated:		(Created)	###
+###################################################
